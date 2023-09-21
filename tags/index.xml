@@ -39,11 +39,19 @@
         <description></description>
         </item>
         <item>
-        <title>Example Tag</title>
-        <link>http://skysora.github.io/tags/example-tag/</link>
-        <pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate>
+        <title>Web</title>
+        <link>http://skysora.github.io/tags/web/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>http://skysora.github.io/tags/example-tag/</guid>
+        <guid>http://skysora.github.io/tags/web/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>素材</title>
+        <link>http://skysora.github.io/tags/%E7%B4%A0%E6%9D%90/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>http://skysora.github.io/tags/%E7%B4%A0%E6%9D%90/</guid>
         <description></description>
         </item>
         

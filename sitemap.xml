@@ -2,8 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://skysora.github.io/post/hello-world/</loc>
-    <lastmod>2022-03-06T00:00:00+00:00</lastmod>
+    <loc>http://skysora.github.io/post/hugo&#43;github/</loc>
   </url><url>
     <loc>http://skysora.github.io/</loc>
     <lastmod>2023-09-07T00:00:00+00:00</lastmod>
@@ -20,7 +19,7 @@
     <loc>http://skysora.github.io/tags/markdown/</loc>
     <lastmod>2023-09-07T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://skysora.github.io/post/markdown-syntax/</loc>
+    <loc>http://skysora.github.io/post/example/markdown-syntax/</loc>
     <lastmod>2023-09-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://skysora.github.io/post/</loc>
@@ -38,29 +37,31 @@
     <loc>http://skysora.github.io/categories/themes/</loc>
     <lastmod>2023-09-07T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://skysora.github.io/post/image-gallery/</loc>
+    <loc>http://skysora.github.io/post/example/image-gallery/</loc>
     <lastmod>2023-08-26T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://skysora.github.io/post/shortcodes/</loc>
+    <loc>http://skysora.github.io/post/example/shortcodes/</loc>
     <lastmod>2023-08-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://skysora.github.io/post/math-typesetting/</loc>
+    <loc>http://skysora.github.io/post/example/math-typesetting/</loc>
     <lastmod>2023-08-24T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://skysora.github.io/page/archives/</loc>
     <lastmod>2022-03-06T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://skysora.github.io/categories/example-category/</loc>
-    <lastmod>2022-03-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://skysora.github.io/tags/example-tag/</loc>
-    <lastmod>2022-03-06T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>http://skysora.github.io/page/</loc>
     <lastmod>2022-03-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://skysora.github.io/categories/example-category/</loc>
   </url><url>
     <loc>http://skysora.github.io/page/links/</loc>
   </url><url>
     <loc>http://skysora.github.io/page/search/</loc>
+  </url><url>
+    <loc>http://skysora.github.io/tags/web/</loc>
+  </url><url>
+    <loc>http://skysora.github.io/categories/web/</loc>
+  </url><url>
+    <loc>http://skysora.github.io/tags/%E7%B4%A0%E6%9D%90/</loc>
   </url>
 </urlset>
