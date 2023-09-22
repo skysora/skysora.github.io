@@ -5,24 +5,7 @@
         <link>http://skysora.github.io/categories/</link>
         <description>Recent content in Categories on Sora&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en-us</language>
-        <lastBuildDate>Thu, 07 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="http://skysora.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>syntax</title>
-        <link>http://skysora.github.io/categories/syntax/</link>
-        <pubDate>Thu, 07 Sep 2023 00:00:00 +0000</pubDate>
-        
-        <guid>http://skysora.github.io/categories/syntax/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>themes</title>
-        <link>http://skysora.github.io/categories/themes/</link>
-        <pubDate>Thu, 07 Sep 2023 00:00:00 +0000</pubDate>
-        
-        <guid>http://skysora.github.io/categories/themes/</guid>
-        <description></description>
-        </item>
-        <item>
+        <language>en-us</language><atom:link href="http://skysora.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Example Category</title>
         <link>http://skysora.github.io/categories/example-category/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -36,6 +19,22 @@
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
         <guid>http://skysora.github.io/categories/web/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>機器學習</title>
+        <link>http://skysora.github.io/categories/%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>http://skysora.github.io/categories/%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>題目</title>
+        <link>http://skysora.github.io/categories/%E9%A1%8C%E7%9B%AE/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>http://skysora.github.io/categories/%E9%A1%8C%E7%9B%AE/</guid>
         <description></description>
         </item>
         
