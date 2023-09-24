@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='比較Azure、GCP、AWS、Vocol SpeechRecognizer'>
+<title>比較各大SpeechRecognizer服務</title>
+
+<link rel='canonical' href='http://skysora.github.io/post/3/'>
+
+<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='比較各大SpeechRecognizer服務'>
+<meta property='og:description' content='比較Azure、GCP、AWS、Vocol SpeechRecognizer'>
+<meta property='og:url' content='http://skysora.github.io/post/3/'>
+<meta property='og:site_name' content='Sora&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='素材' /><meta property='article:tag' content='Cloud' /><meta property='article:published_time' content='2023-09-24T14:21:33&#43;08:00'/><meta property='article:modified_time' content='2023-09-24T14:21:33&#43;08:00'/><meta property='og:image' content='http://skysora.github.io/post/3/1.jpg' />
+<meta name="twitter:title" content="比較各大SpeechRecognizer服務">
+<meta name="twitter:description" content="比較Azure、GCP、AWS、Vocol SpeechRecognizer"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://skysora.github.io/post/3/1.jpg' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Sora&#39;s Blog</a></h1>
+            <h2 class="site-description">what doesn&#39;t kill you makes you stronger</h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/post/3/">
+                <img src="/post/3/1_hudd2e8259c20ed0dcaa856c253552e90f_14625_800x0_resize_q75_box.jpg"
+                        srcset="/post/3/1_hudd2e8259c20ed0dcaa856c253552e90f_14625_800x0_resize_q75_box.jpg 800w, /post/3/1_hudd2e8259c20ed0dcaa856c253552e90f_14625_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="560" 
+                        loading="lazy"
+                        alt="Featured image of post 比較各大SpeechRecognizer服務" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E5%AD%B8%E7%BF%92/" >
+                學習
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/3/">比較各大SpeechRecognizer服務</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            比較Azure、GCP、AWS、Vocol SpeechRecognizer
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Sep 24, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    6 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="heading"></h1>
+<h2 id="結論">結論</h2>
+<h3 id="inline-markdown-within-tables">Inline Markdown within tables</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>Azure</th>
+<th>GCP</th>
+<th>AWS</th>
+<th>Vocol</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>服務名稱</td>
+<td>Speech</td>
+<td>Cloud Speech-to-Text API</td>
+<td>Amazon Transcribe</td>
+<td>vovol.ai</td>
+</tr>
+<tr>
+<td>GUI介面</td>
+<td>X</td>
+<td>O</td>
+<td>O</td>
+<td>O</td>
+</tr>
+<tr>
+<td>輸出多元度</td>
+<td>高</td>
+<td>普</td>
+<td>普</td>
+<td>低</td>
+</tr>
+<tr>
+<td>切割單位</td>
+<td>整段、句子</td>
+<td>句子、字</td>
+<td>整段、詞</td>
+<td>說話者</td>
+</tr>
+<tr>
+<td>調整設定</td>
+<td>無</td>
+<td>普</td>
+<td>最多</td>
+<td>少</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="azure">Azure</h3>
+<p><img src="/post/3/Azure_Speech.png"
+	width="549"
+	height="209"
+	srcset="/post/3/Azure_Speech_hue499aa6f29b7336f9b15fc9110db64ea_17250_480x0_resize_box_3.png 480w, /post/3/Azure_Speech_hue499aa6f29b7336f9b15fc9110db64ea_17250_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="Image 1"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="262"
+		data-flex-basis="630px"
+	
+></p>
+<ul>
+<li>優點：回傳的比較詳細</li>
+<li>缺點：沒有GUI介面，要自己刻</li>
+<li>可以簡單利用API串接的方式達到即時麥克風輸入、語音上傳的功能，但是如果要進行較大檔案的上傳，利用官方網站提供的Sample code無法執行，要另外自行串接</li>
+<li>輸出格式：大致如下，combinedRecognizedPhrases為辨識出的每個句子組合的文章，recognizedPhrases則包含每個辨識出來的句子詳細資料。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;source&#34;</span>:<span style="color:#e6db74">&#34;https://ntuststorage1.blob.core.windows.net/test/1.wav&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;timestamp&#34;</span>:<span style="color:#e6db74">&#34;2023-09-18T14:06:32Z&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;durationInTicks&#34;</span>:<span style="color:#ae81ff">6875900000</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;duration&#34;</span>:<span style="color:#e6db74">&#34;PT11M27.59S&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;combinedRecognizedPhrases&#34;</span>:[<span style="color:#960050;background-color:#1e0010">...</span>],
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;recognizedPhrases&#34;</span>[<span style="color:#960050;background-color:#1e0010">...</span>],
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><ul>
+<li>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lexical</td>
+<td>The lexical form of the recognized text: the actual words recognized.</td>
+</tr>
+<tr>
+<td>ITN</td>
+<td>The inverse-text-normalized (ITN) or canonical form of the recognized text, with phone numbers, numbers, abbreviations (&ldquo;doctor smith&rdquo; to &ldquo;dr smith&rdquo;), and other transformations applied.</td>
+</tr>
+<tr>
+<td>MaskedITN</td>
+<td>The ITN form with profanity masking applied, if requested.</td>
+</tr>
+<tr>
+<td>Display</td>
+<td>The display form of the recognized text, with punctuation and capitalization added. This parameter is the same as what DisplayText provides when the format is set to simple.</td>
+</tr>
+</tbody>
+</table></div>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;combinedRecognizedPhrases&#34;</span><span style="color:#960050;background-color:#1e0010">:</span>[
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;channel&#34;</span>:<span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;lexical&#34;</span>:<span style="color:#e6db74">&#34;台 湾 民 主 国 的 抗 日 这 是 什 么 呢 蓝 色 的 底 色 黄 色 的 老 虎 蓝 地 黄 虎 旗 是 什 么 国 家 的 旗 帜 台 湾 民 主 国 台 湾 民 主 国 蓝 地 黄 虎 旗 与 清 朝 黄 龙 起 有 何 不 同 呢 颜 色 相 反 龙 虎 相 斗 还 是 龙 兄 虎 弟 台 湾 民 主 国 什 么 时 候 成 立 的 呢 目 的 是 什 么 总 统 是 谁 结 果 又 如 何 呢 西 元 一 八 九 四 年 中 国 清 廷 与 日 本 因 为 朝 鲜 问 题 爆 发 什 么 战 争 西 元 一 八 九 四 年 清 光 绪 二 十 年 中 国 清 廷 与 日 本 &#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;itn&#34;</span>:<span style="color:#e6db74">&#34;台 湾 民 主 国 的 抗 日 这 是 什 么 呢 蓝 色 的 底 色 黄 色 的 老 虎 蓝 地 黄 虎 旗 是 什 么 国 家 的 旗 帜 台 湾 民 主 国 台 湾 民 主 国 蓝 地 黄 虎 旗 与 清 朝 黄 龙 起 有 何 不 同 呢 颜 色 相 反 龙 虎 相 斗 还 是 龙 兄 虎 弟 台 湾 民 主 国 什 么 时 候 成 立 的 呢 目 的 是 什 么 总 统 是 谁 结 果 又 如 何 呢 西 元 1894年 中 国 清 廷 与 日 本 因 为 朝 鲜 问 题 爆 发 什 么 战 争 西 元 1894年 清 光 绪 二十 年 中 国 清 廷 与 日 本 因 为 朝 鲜 问 题 爆 发 甲 午&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;maskedITN&#34;</span>:<span style="color:#e6db74">&#34;台湾民主国的抗日这是什么呢蓝色的底色黄色的老虎蓝地黄虎旗是什么国家的旗帜台湾民主国台湾民主国蓝地黄虎旗 关甲午战争西元1895年6月日军进入哪里就宣布开始统治台湾 台北&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;display&#34;</span>:<span style="color:#e6db74">&#34;台湾民主国的抗日，这是什么呢？蓝色的底色，黄色的老虎蓝地黄虎旗是什么国家的旗帜？台湾民主国台湾民主国蓝地黄虎旗。 与清朝黄龙起有何不同呢？颜色相反，龙虎相斗，还是龙兄虎弟，台湾民主国什么时候成立的呢？目的是什么？总统是谁？结果又如何呢？ 西元1894年，中国清廷与日本因为朝鲜问题爆发什么战争？西元1894年清光绪二十年，中国清廷与日本因为朝鲜问题爆发甲午战争，中国的海战陆战都。 都失败，所以清廷派李鸿章到日本求和在下关也就是马关的谈判当&#34;</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;channel&#34;</span>:<span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;lexical&#34;</span>:<span style="color:#e6db74">&#34;台 湾 民 主 国 的 抗 日 这 是 什 么 呢 蓝 色 的 底 色 黄 色 的 老 虎 蓝 地 黄 虎 旗 是 什 么 国 家 的 旗 帜 台 湾 民 主 国 台 湾 民 主 国 蓝 地 黄 虎 旗 与 清 朝 黄 龙 起 有 何 不 同 呢 颜 色 相 反 龙 虎 相 斗 还 是 龙 生 虎 地 台 湾 民 主 国 什 么 时 候 成 立 的 呢 目...&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;itn&#34;</span>:<span style="color:#e6db74">&#34;台 湾 民 主 国 的 抗 日 这 是 什 么 呢 蓝 色 的 底 色 黄 色 的 老 虎 蓝 地 黄 虎 旗 是...&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;maskedITN&#34;</span>:<span style="color:#e6db74">&#34;台湾民主国的抗日这是什么呢...&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;display&#34;</span>:<span style="color:#e6db74">&#34;台湾民主国的抗日，...&#34;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    ]<span style="color:#960050;background-color:#1e0010">,</span>
+</span></span></code></pre></div><ul>
+<li>這裡是回傳5-best
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Confidence</td>
+<td>The confidence score of the entry, from 0.0 (no confidence) to 1.0 (full confidence).</td>
+</tr>
+</tbody>
+</table></div>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;recognizedPhrases&#34;</span><span style="color:#960050;background-color:#1e0010">:</span>[
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;recognitionStatus&#34;</span>:<span style="color:#e6db74">&#34;Success&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;channel&#34;</span>:<span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;offset&#34;</span>:<span style="color:#e6db74">&#34;PT0.64S&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;duration&#34;</span>:<span style="color:#e6db74">&#34;PT28.04S&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;offsetInTicks&#34;</span>:<span style="color:#ae81ff">6400000.0</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;durationInTicks&#34;</span>:<span style="color:#ae81ff">280400000.0</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;nBest&#34;</span>:[
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;confidence&#34;</span>:<span style="color:#ae81ff">0.8839353</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;lexical&#34;</span>:<span style="color:#e6db74">&#34;台 湾 民 主 国 的 抗 日 这 是 什 么 呢 蓝 色 的 底 色 黄 色 的 老 虎 蓝 地 黄 虎 旗 是 什 么 国 家 的 旗 帜 台 湾 民 主 国 台 湾 民 主 国 蓝 地 黄 虎 旗&#34;</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;itn&#34;</span>:<span style="color:#e6db74">&#34;台 湾 民 主 国 的 抗 日 这 是 什 么 呢 蓝 色 的 底 色 黄 色 的 老 虎 蓝 地 黄 虎 旗 是 什 么 国 家 的 旗 帜 台 湾 民 主 国 台 湾 民 主 国 蓝 地 黄 虎 旗&#34;</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;maskedITN&#34;</span>:<span style="color:#e6db74">&#34;台湾民主国的抗日这是什么呢蓝色的底色黄色的老虎蓝地黄虎旗是什么国家的旗帜台湾民主国台湾民主国蓝地黄虎旗&#34;</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;display&#34;</span>:<span style="color:#e6db74">&#34;台湾民主国的抗日，这是什么呢？蓝色的底色，黄色的老虎蓝地黄虎旗是什么国家的旗帜？台湾民主国台湾民主国蓝地黄虎旗。&#34;</span>
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;confidence&#34;</span>:<span style="color:#ae81ff">0.8823599</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;lexical&#34;</span>:<span style="color:#e6db74">&#34;台湾民主国的抗日这是什么呢蓝色的底色黄色的老虎蓝帝黄虎旗是什么国家的旗帜台湾民主国台湾民主国蓝帝黄虎旗&#34;</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;itn&#34;</span>:<span style="color:#e6db74">&#34;台湾民主国的抗日这是什么呢蓝色的底色黄色的老虎蓝帝黄虎旗是什么国家的旗帜台湾民主国台湾民主国蓝帝黄虎旗&#34;</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;maskedITN&#34;</span>:<span style="color:#e6db74">&#34;台湾民主国的抗日这是什么呢蓝色的底色黄色的老虎蓝帝黄虎旗是什么国家的旗帜台湾民主国台湾民主国蓝帝黄虎旗&#34;</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;display&#34;</span>:<span style="color:#e6db74">&#34;台湾民主国的抗日这是什么呢蓝色的底色黄色的老虎蓝帝黄虎旗是什么国家的旗帜台湾民主国台湾民主国蓝帝黄虎旗&#34;</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>         ]
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;recognitionStatus&#34;</span>:<span style="color:#e6db74">&#34;Success&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;channel&#34;</span>:<span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;offset&#34;</span>:<span style="color:#e6db74">&#34;PT29.52S&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;duration&#34;</span>:<span style="color:#e6db74">&#34;PT29.2S&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;offsetInTicks&#34;</span>:<span style="color:#ae81ff">295200000.0</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;durationInTicks&#34;</span>:<span style="color:#ae81ff">292000000.0</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;nBest&#34;</span>:[
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;confidence&#34;</span>:<span style="color:#ae81ff">0.8856299</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;lexical&#34;</span>:<span style="color:#e6db74">&#34;与 清 朝 黄 龙 起 有 何 不 同 呢 颜 色 相 反 龙 虎 相 斗 还 是 龙 兄 虎 弟 台 湾 民 主 国 什 么 时 候 成 立 的 呢 目 的 是 什 么 总 统 是 谁 结 果 又 如 何 呢&#34;</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;itn&#34;</span>:<span style="color:#e6db74">&#34;与 清 朝 黄 龙 起 有 何 不 同 呢 颜 色 相 反 龙 虎 相 斗 还 是 龙 兄 虎 弟 台 湾 民 主 国 什 么 时 候 成 立 的 呢 目 的 是 什 么 总 统 是 谁 结 果 又 如 何 呢&#34;</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;maskedITN&#34;</span>:<span style="color:#e6db74">&#34;与清朝黄龙起有何不同呢颜色相反龙虎相斗还是龙兄虎弟台湾民主国什么时候成立的呢目的是什么总统是谁结果又如何呢&#34;</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;display&#34;</span>:<span style="color:#e6db74">&#34;与清朝黄龙起有何不同呢？颜色相反，龙虎相斗，还是龙兄虎弟，台湾民主国什么时候成立的呢？目的是什么？总统是谁？结果又如何呢？&#34;</span>
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;confidence&#34;</span>:<span style="color:#ae81ff">0.8887188</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;lexical&#34;</span>:<span style="color:#e6db74">&#34;与清朝黄龙起有何不同呢颜色相反龙虎相斗还是龙生虎地台湾民主国什么时候成立的呢目的是什么总统是谁结果又如何呢&#34;</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;itn&#34;</span>:<span style="color:#e6db74">&#34;与清朝黄龙起有何不同呢颜色相反龙虎相斗还是龙生虎地台湾民主国什么时候成立的呢目的是什么总统是谁结果又如何呢&#34;</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;maskedITN&#34;</span>:<span style="color:#e6db74">&#34;与清朝黄龙起有何不同呢颜色相反龙虎相斗还是龙生虎地台湾民主国什么时候成立的呢目的是什么总统是谁结果又如何呢&#34;</span>,
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">&#34;display&#34;</span>:<span style="color:#e6db74">&#34;与清朝黄龙起有何不同呢颜色相反龙虎相斗还是龙生虎地台湾民主国什么时候成立的呢目的是什么总统是谁结果又如何呢&#34;</span>
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>         ]
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>    ]
+</span></span></code></pre></div><h3 id="gcp">GCP</h3>
+<p><img src="/post/3/GCP_Speech.png"
+	width="555"
+	height="257"
+	srcset="/post/3/GCP_Speech_hu80159f6d95811c07c4513f4ea172d6a8_23347_480x0_resize_box_3.png 480w, /post/3/GCP_Speech_hu80159f6d95811c07c4513f4ea172d6a8_23347_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="Image 1"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="215"
+		data-flex-basis="518px"
+	
+></p>
+<ul>
+<li>優點：有GUI可以對每個設定做調整，如果沒有要接API比較方便</li>
+<li>缺點：輸出feature比較少</li>
+<li>輸出格式：會自行判斷斷點，以alternatives做區隔</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;results&#34;</span><span style="color:#960050;background-color:#1e0010">:</span>[
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;alternatives&#34;</span>:[
+</span></span><span style="display:flex;"><span>                {
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;transcript&#34;</span>:<span style="color:#e6db74">&#34; 台 灣 民 主 國 的 抗 議 , 這 是 什 麼 呢 ? 藍 色 的 底 色 , 黃 色 的 老 虎 , 藍 弟 皇 虎 旗 是 什 麼 國 家 的 期 制 ? 台 灣 民 主 國 , 台 灣 民 主 國 南 地 荒 虎 起 , 與 ,&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;words&#34;</span>:[
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">&#34;word&#34;</span>:<span style="color:#e6db74">&#34;台&#34;</span>
+</span></span><span style="display:flex;"><span>                    },
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">&#34;word&#34;</span>:<span style="color:#e6db74">&#34;灣&#34;</span>
+</span></span><span style="display:flex;"><span>                    },
+</span></span><span style="display:flex;"><span>                    <span style="color:#960050;background-color:#1e0010">...</span>
+</span></span><span style="display:flex;"><span>                ]
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            ],
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;channelTag&#34;</span>:<span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;languageCode&#34;</span>:<span style="color:#e6db74">&#34;zh-TW&#34;</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;alternatives&#34;</span>:[
+</span></span><span style="display:flex;"><span>                {
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;transcript&#34;</span>:<span style="color:#960050;background-color:#1e0010">清</span> <span style="color:#960050;background-color:#1e0010">草</span> <span style="color:#960050;background-color:#1e0010">黃</span> <span style="color:#960050;background-color:#1e0010">龍</span> <span style="color:#960050;background-color:#1e0010">起</span> , <span style="color:#960050;background-color:#1e0010">有</span> <span style="color:#960050;background-color:#1e0010">何</span> <span style="color:#960050;background-color:#1e0010">不</span> <span style="color:#960050;background-color:#1e0010">同</span> <span style="color:#960050;background-color:#1e0010">呢</span> <span style="color:#960050;background-color:#1e0010">?</span> <span style="color:#960050;background-color:#1e0010">顏</span> <span style="color:#960050;background-color:#1e0010">色</span> <span style="color:#960050;background-color:#1e0010">相</span> <span style="color:#960050;background-color:#1e0010">反</span> <span style="color:#960050;background-color:#1e0010">。</span> <span style="color:#960050;background-color:#1e0010">龍</span> <span style="color:#960050;background-color:#1e0010">虎</span> <span style="color:#960050;background-color:#1e0010">相</span> <span style="color:#960050;background-color:#1e0010">鬥</span> <span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#960050;background-color:#1e0010">還</span> <span style="color:#960050;background-color:#1e0010">是</span> <span style="color:#960050;background-color:#1e0010">龍</span> <span style="color:#960050;background-color:#1e0010">松</span> <span style="color:#960050;background-color:#1e0010">虎</span> <span style="color:#960050;background-color:#1e0010">地</span> <span style="color:#960050;background-color:#1e0010">?</span> <span style="color:#960050;background-color:#1e0010">台</span> <span style="color:#960050;background-color:#1e0010">灣</span> <span style="color:#960050;background-color:#1e0010">民</span> <span style="color:#960050;background-color:#1e0010">主</span> <span style="color:#960050;background-color:#1e0010">國</span> <span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#960050;background-color:#1e0010">什</span> <span style="color:#960050;background-color:#1e0010">麼</span> <span style="color:#960050;background-color:#1e0010">時</span> <span style="color:#960050;background-color:#1e0010">候</span> <span style="color:#960050;background-color:#1e0010">成</span> <span style="color:#960050;background-color:#1e0010">立</span> <span style="color:#960050;background-color:#1e0010">的</span> <span style="color:#960050;background-color:#1e0010">呢</span> <span style="color:#960050;background-color:#1e0010">?</span> <span style="color:#960050;background-color:#1e0010">目</span> <span style="color:#960050;background-color:#1e0010">的</span> <span style="color:#960050;background-color:#1e0010">是</span> <span style="color:#960050;background-color:#1e0010">什</span> <span style="color:#960050;background-color:#1e0010">麼</span> <span style="color:#960050;background-color:#1e0010">?</span> <span style="color:#960050;background-color:#1e0010">總</span> <span style="color:#960050;background-color:#1e0010">統</span> <span style="color:#960050;background-color:#1e0010">是</span> <span style="color:#960050;background-color:#1e0010">誰</span> <span style="color:#960050;background-color:#1e0010">?</span> <span style="color:#960050;background-color:#1e0010">結</span> <span style="color:#960050;background-color:#1e0010">果</span> <span style="color:#960050;background-color:#1e0010">又</span> <span style="color:#960050;background-color:#1e0010">如</span> <span style="color:#960050;background-color:#1e0010">何</span> <span style="color:#960050;background-color:#1e0010">呢</span> <span style="color:#960050;background-color:#1e0010">?</span><span style="color:#f92672">&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672">                &#34;</span><span style="color:#960050;background-color:#1e0010">words</span><span style="color:#e6db74">&#34;:[
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                    {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                        &#34;</span><span style="color:#960050;background-color:#1e0010">word</span><span style="color:#e6db74">&#34;:&#34;</span><span style="color:#960050;background-color:#1e0010">清</span><span style="color:#e6db74">&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                    },
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                    {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                        &#34;</span><span style="color:#960050;background-color:#1e0010">word</span><span style="color:#e6db74">&#34;:&#34;</span><span style="color:#960050;background-color:#1e0010">草</span><span style="color:#e6db74">&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                    },
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                    ...
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                ]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                }
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            ],
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            &#34;</span><span style="color:#960050;background-color:#1e0010">channelTag</span><span style="color:#e6db74">&#34;:1,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            &#34;</span><span style="color:#960050;background-color:#1e0010">languageCode</span><span style="color:#e6db74">&#34;:&#34;</span><span style="color:#960050;background-color:#1e0010">zh-TW&#34;</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>    ]
+</span></span></code></pre></div><h3 id="aws">AWS</h3>
+<p><img src="/post/3/AWS_Speech.png"
+	width="571"
+	height="208"
+	srcset="/post/3/AWS_Speech_huafcdcf8421431541272304d69d7e3257_30495_480x0_resize_box_3.png 480w, /post/3/AWS_Speech_huafcdcf8421431541272304d69d7e3257_30495_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="Image 1"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="274"
+		data-flex-basis="658px"
+	
+></p>
+<ul>
+<li>優點：有GUI可以對每個設定做調整，如果沒有要接API比較方便</li>
+<li>缺點：輸出feature比較少</li>
+<li>輸出格式：會自行判斷&quot;詞&quot;，給予信心程度、開始結束時間</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&#34;jobName&#34;</span>:<span style="color:#e6db74">&#34;2&#34;</span>,
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&#34;accountId&#34;</span>:<span style="color:#e6db74">&#34;794015217967&#34;</span>,
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&#34;results&#34;</span>:{
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;transcripts&#34;</span>:[
+</span></span><span style="display:flex;"><span>         {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;transcript&#34;</span>:<span style="color:#e6db74">&#34;臺灣民主國的抗日，這是什麼呢？藍色的底色，黃色的老虎男的黃呼氣是什麼國家的體製臺灣民主國臺灣民主國藍的歡呼，其與清朝黃隆起有何不衕呢？顏色相反龍虎相鬥還是隆胸唬的臺灣民主國什麼時候成立的呢？目的是什麼？總統是誰，結果又如何呢？西元一八九四年中國清廷與日本因為朝鮮問題爆發什麼戰爭？西元一八九四年清光緒二十年中國青年與日本因為朝鮮問題爆髮甲午戰爭，中國的海戰、陸戰都失敗，所以輕盈派的紅妝到日本求和再下官也就是馬觀的談判噹中。日方代錶伊籐薄為予取予求，李鴻章沒有太多討價還價的餘地簽訂了割地賠款的馬關條約日本穫利豐富。...&#34;</span>
+</span></span><span style="display:flex;"><span>         }
+</span></span><span style="display:flex;"><span>      ],
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;items&#34;</span>:[
+</span></span><span style="display:flex;"><span>         {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;start_time&#34;</span>:<span style="color:#e6db74">&#34;0.65&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;end_time&#34;</span>:<span style="color:#e6db74">&#34;1.05&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;alternatives&#34;</span>:[
+</span></span><span style="display:flex;"><span>               {
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">&#34;confidence&#34;</span>:<span style="color:#e6db74">&#34;0.9259&#34;</span>,
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">&#34;content&#34;</span>:<span style="color:#e6db74">&#34;臺&#34;</span>
+</span></span><span style="display:flex;"><span>               }
+</span></span><span style="display:flex;"><span>            ],
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;type&#34;</span>:<span style="color:#e6db74">&#34;pronunciation&#34;</span>
+</span></span><span style="display:flex;"><span>         },
+</span></span><span style="display:flex;"><span>         {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;start_time&#34;</span>:<span style="color:#e6db74">&#34;1.05&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;end_time&#34;</span>:<span style="color:#e6db74">&#34;1.42&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;alternatives&#34;</span>:[
+</span></span><span style="display:flex;"><span>               {
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">&#34;confidence&#34;</span>:<span style="color:#e6db74">&#34;0.9472&#34;</span>,
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">&#34;content&#34;</span>:<span style="color:#e6db74">&#34;灣&#34;</span>
+</span></span><span style="display:flex;"><span>               }
+</span></span><span style="display:flex;"><span>            ],
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;type&#34;</span>:<span style="color:#e6db74">&#34;pronunciation&#34;</span>
+</span></span><span style="display:flex;"><span>         },
+</span></span><span style="display:flex;"><span>         {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;start_time&#34;</span>:<span style="color:#e6db74">&#34;1.42&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;end_time&#34;</span>:<span style="color:#e6db74">&#34;2.02&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;alternatives&#34;</span>:[
+</span></span><span style="display:flex;"><span>               {
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">&#34;confidence&#34;</span>:<span style="color:#e6db74">&#34;0.989&#34;</span>,
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">&#34;content&#34;</span>:<span style="color:#e6db74">&#34;民主&#34;</span>
+</span></span><span style="display:flex;"><span>               }
+</span></span><span style="display:flex;"><span>            ],
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;type&#34;</span>:<span style="color:#e6db74">&#34;pronunciation&#34;</span>
+</span></span><span style="display:flex;"><span>         },
+</span></span><span style="display:flex;"><span>         {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;start_time&#34;</span>:<span style="color:#e6db74">&#34;2.02&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;end_time&#34;</span>:<span style="color:#e6db74">&#34;2.4&#34;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;alternatives&#34;</span>:[
+</span></span><span style="display:flex;"><span>               {
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">&#34;confidence&#34;</span>:<span style="color:#e6db74">&#34;0.5566&#34;</span>,
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">&#34;content&#34;</span>:<span style="color:#e6db74">&#34;國的&#34;</span>
+</span></span><span style="display:flex;"><span>               }
+</span></span><span style="display:flex;"><span>            ],
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&#34;type&#34;</span>:<span style="color:#e6db74">&#34;pronunciation&#34;</span>
+</span></span><span style="display:flex;"><span>         },<span style="color:#960050;background-color:#1e0010">...</span>
+</span></span><span style="display:flex;"><span>      ]
+</span></span><span style="display:flex;"><span>   },
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">&#34;status&#34;</span>:<span style="color:#e6db74">&#34;COMPLETED&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="vocol">Vocol</h3>
+<p><img src="/post/3/Vocal_speech.png"
+	width="759"
+	height="306"
+	srcset="/post/3/Vocal_speech_hu0818515575090b7bdeeee2f34bd50e7b_91967_480x0_resize_box_3.png 480w, /post/3/Vocal_speech_hu0818515575090b7bdeeee2f34bd50e7b_91967_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="Image 1"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="248"
+		data-flex-basis="595px"
+	
+></p>
+<ul>
+<li>優點：GUI完整。</li>
+<li>缺點：可調整設定很少、沒有API可供使用</li>
+<li>輸出格式：以句子做斷點。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    speaker1: 臺灣民主國的抗日。這...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    speaker2: 日軍攻佔澎湖。這...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    speaker1: 西元1895年已未年。5月29日，日軍由北百川功能九親王...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    speaker2: 中國。清朝統治臺灣。有多少年呢?...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    speaker1: 臺灣民主國雖然號稱民主，但它是否是一個民主國家呢?不是的...
+</span></span></code></pre></div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E7%B4%A0%E6%9D%90/">素材</a>
+        
+            <a href="/tags/cloud/">Cloud</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/post/1/">
+        
+        
+            <div class="article-image">
+                <img src="/post/1/cover.c514d916917173a48a42e0114b469961_hud7e36f7e20e71be184458283bdae4646_55974_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Hugo&#43;Github server"
+                        
+                        data-hash="md5-xRTZFpFxc6SKQuARS0aZYQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Hugo&#43;Github server</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2023 Sora&#39;s Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.20.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

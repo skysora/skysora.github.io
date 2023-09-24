@@ -5,13 +5,14 @@
         <link>http://skysora.github.io/tags/web/</link>
         <description>Recent content in Web on Sora&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en-us</language><atom:link href="http://skysora.github.io/tags/web/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title></title>
+        <language>en-us</language>
+        <lastBuildDate>Thu, 21 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="http://skysora.github.io/tags/web/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Hugo&#43;Github server</title>
         <link>http://skysora.github.io/post/1/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        <pubDate>Thu, 21 Sep 2023 00:00:00 +0000</pubDate>
         
         <guid>http://skysora.github.io/post/1/</guid>
-        <description>&lt;img src="http://skysora.github.io/post/1/cover.jpg" alt="Featured image of post " /&gt;&lt;h1 id=&#34;利用hugo建置靜態網頁放置在github-server上&#34;&gt;利用Hugo建置靜態網頁放置在Github server上&lt;/h1&gt;
+        <description>&lt;img src="http://skysora.github.io/post/1/cover.jpg" alt="Featured image of post Hugo&#43;Github server" /&gt;&lt;h1 id=&#34;利用hugo建置靜態網頁放置在github-server上&#34;&gt;利用Hugo建置靜態網頁放置在Github server上&lt;/h1&gt;
 &lt;h2 id=&#34;結果圖&#34;&gt;結果圖&lt;/h2&gt;
 &lt;p&gt;&lt;img src=&#34;http://skysora.github.io/post/1/result.png&#34;
 	width=&#34;2555&#34;
