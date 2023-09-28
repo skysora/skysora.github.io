@@ -6,20 +6,36 @@
         <description>Recent content in Tags on Sora&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Sun, 24 Sep 2023 14:21:33 +0800</lastBuildDate><atom:link href="http://skysora.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Cloud</title>
-        <link>http://skysora.github.io/tags/cloud/</link>
-        <pubDate>Sun, 24 Sep 2023 14:21:33 +0800</pubDate>
+        <lastBuildDate>Thu, 28 Sep 2023 15:02:14 +0800</lastBuildDate><atom:link href="http://skysora.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Server</title>
+        <link>http://skysora.github.io/tags/server/</link>
+        <pubDate>Thu, 28 Sep 2023 15:02:14 +0800</pubDate>
         
-        <guid>http://skysora.github.io/tags/cloud/</guid>
+        <guid>http://skysora.github.io/tags/server/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Tool</title>
+        <link>http://skysora.github.io/tags/tool/</link>
+        <pubDate>Thu, 28 Sep 2023 15:02:14 +0800</pubDate>
+        
+        <guid>http://skysora.github.io/tags/tool/</guid>
         <description></description>
         </item>
         <item>
         <title>素材</title>
         <link>http://skysora.github.io/tags/%E7%B4%A0%E6%9D%90/</link>
-        <pubDate>Sun, 24 Sep 2023 14:21:33 +0800</pubDate>
+        <pubDate>Thu, 28 Sep 2023 15:02:14 +0800</pubDate>
         
         <guid>http://skysora.github.io/tags/%E7%B4%A0%E6%9D%90/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Cloud</title>
+        <link>http://skysora.github.io/tags/cloud/</link>
+        <pubDate>Sun, 24 Sep 2023 14:21:33 +0800</pubDate>
+        
+        <guid>http://skysora.github.io/tags/cloud/</guid>
         <description></description>
         </item>
         <item>

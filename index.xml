@@ -7,6 +7,116 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <lastBuildDate>Sun, 06 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://skysora.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Multi-server Resource Management</title>
+        <link>http://skysora.github.io/post/4/</link>
+        <pubDate>Thu, 28 Sep 2023 15:02:14 +0800</pubDate>
+        
+        <guid>http://skysora.github.io/post/4/</guid>
+        <description>&lt;img src="http://skysora.github.io/post/4/cover.jpg" alt="Featured image of post Multi-server Resource Management" /&gt;&lt;h2 id=&#34;結果&#34;&gt;結果&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;http://skysora.github.io/post/4/result.png&#34;
+	width=&#34;1920&#34;
+	height=&#34;973&#34;
+	srcset=&#34;http://skysora.github.io/post/4/result_hu11550a659abd841cb2b15010758518d6_323611_480x0_resize_box_3.png 480w, http://skysora.github.io/post/4/result_hu11550a659abd841cb2b15010758518d6_323611_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Image 1&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;197&#34;
+		data-flex-basis=&#34;473px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;架構&#34;&gt;架構&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;http://skysora.github.io/post/4/structure.png&#34;
+	width=&#34;546&#34;
+	height=&#34;365&#34;
+	srcset=&#34;http://skysora.github.io/post/4/structure_hu8b4f48447e5949ad084d7efdd469e81e_70484_480x0_resize_box_3.png 480w, http://skysora.github.io/post/4/structure_hu8b4f48447e5949ad084d7efdd469e81e_70484_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Image 1&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;149&#34;
+		data-flex-basis=&#34;359px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;建置步驟&#34;&gt;建置步驟&lt;/h2&gt;
+&lt;h3 id=&#34;1下載需要的檔案並啟動&#34;&gt;1.下載需要的檔案，並啟動&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    git clone https://github.com/skysora/multi-server-resource-management.git
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    cd multi-server-resource-management
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    docker-compose up -d 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;2建立datascoure&#34;&gt;2.建立DataScoure&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;meau-&amp;gt;Connections-&amp;gt;Data sources-&amp;gt;Add new data source-&amp;gt;prometheus&lt;/li&gt;
+&lt;li&gt;在Prometheus server URL，輸入&amp;lt;你的url&amp;gt;:9090&lt;/li&gt;
+&lt;li&gt;Save &amp;amp; test&lt;/li&gt;
+&lt;li&gt;若有多台主機要重複此步驟，並且每台主機都要經過第一步驟。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;http://skysora.github.io/post/4/step2.png&#34;
+	width=&#34;793&#34;
+	height=&#34;845&#34;
+	srcset=&#34;http://skysora.github.io/post/4/step2_hu9243efb77644038172af8f6ff08f7787_81425_480x0_resize_box_3.png 480w, http://skysora.github.io/post/4/step2_hu9243efb77644038172af8f6ff08f7787_81425_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Image 1&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;93&#34;
+		data-flex-basis=&#34;225px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2建立dashboard&#34;&gt;2.建立Dashboard&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;可依照喜好和使用的模組到https://grafana.com/grafana/dashboards/選擇喜歡的dashboards&lt;/li&gt;
+&lt;li&gt;本教學使用三個模組分別為node_exporter、cadvisor、nvidia_gpu_exporter
+&lt;ul&gt;
+&lt;li&gt;node_exporter蒐集server基本資源，Ex：CPU、Memory、Network。參考模板：https://grafana.com/grafana/dashboards/1860-node-exporter-full/&lt;/li&gt;
+&lt;li&gt;cadvisor 蒐集 docker容器內資源用量。參考模板：https://grafana.com/grafana/dashboards/14282-cadvisor-exporter/&lt;/li&gt;
+&lt;li&gt;nvidia_gpu_exporter蒐集server GPU使用量。參考模板：https://grafana.com/grafana/dashboards/14574-nvidia-gpu-metrics/&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;進入模板頁面copy dashboard ID&lt;/li&gt;
+&lt;li&gt;Meau-&amp;gt;Dashboards-&amp;gt;New-&amp;gt;Import&lt;/li&gt;
+&lt;li&gt;將ID 放入UID中，點選Load(Load之後會顯示另外一個ID)&lt;/li&gt;
+&lt;li&gt;Prometheus(DataScoure)選擇資料來源&lt;/li&gt;
+&lt;li&gt;點擊Import
+&lt;img src=&#34;http://skysora.github.io/post/4/Step3.png&#34;
+	width=&#34;1908&#34;
+	height=&#34;964&#34;
+	srcset=&#34;http://skysora.github.io/post/4/Step3_hu4fad40fef7315f2cfc8613a85ceea18d_137585_480x0_resize_box_3.png 480w, http://skysora.github.io/post/4/Step3_hu4fad40fef7315f2cfc8613a85ceea18d_137585_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Image 1&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;197&#34;
+		data-flex-basis=&#34;475px&#34;
+	
+&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3依照步驟2完成所有監控設定&#34;&gt;3.依照步驟2完成所有監控設定&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;http://skysora.github.io/post/4/dashboard.png&#34;
+	width=&#34;1918&#34;
+	height=&#34;929&#34;
+	srcset=&#34;http://skysora.github.io/post/4/dashboard_hu0a3ddd0107ed4bfb23cee0a5a9d984a9_128868_480x0_resize_box_3.png 480w, http://skysora.github.io/post/4/dashboard_hu0a3ddd0107ed4bfb23cee0a5a9d984a9_128868_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Image 1&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;206&#34;
+		data-flex-basis=&#34;495px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>比較各大SpeechRecognizer服務</title>
         <link>http://skysora.github.io/post/3/</link>
         <pubDate>Sun, 24 Sep 2023 14:21:33 +0800</pubDate>
@@ -14,7 +124,6 @@
         <guid>http://skysora.github.io/post/3/</guid>
         <description>&lt;img src="http://skysora.github.io/post/3/1.jpg" alt="Featured image of post 比較各大SpeechRecognizer服務" /&gt;&lt;h1 id=&#34;heading&#34;&gt;&lt;/h1&gt;
 &lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
-&lt;h3 id=&#34;inline-markdown-within-tables&#34;&gt;Inline Markdown within tables&lt;/h3&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
