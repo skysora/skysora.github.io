@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='利用OpenCV做邊緣偵測切割出食物面積，利用swift ARKit知道深度之後，計算出食物份量。'>
+<title>利用OpenCV計算食物份量(簡單版)</title>
+
+<link rel='canonical' href='http://skysora.github.io/post/6/'>
+
+<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='利用OpenCV計算食物份量(簡單版)'>
+<meta property='og:description' content='利用OpenCV做邊緣偵測切割出食物面積，利用swift ARKit知道深度之後，計算出食物份量。'>
+<meta property='og:url' content='http://skysora.github.io/post/6/'>
+<meta property='og:site_name' content='Sora&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='素材' /><meta property='article:published_time' content='2023-10-09T21:18:23&#43;08:00'/><meta property='article:modified_time' content='2023-10-09T21:18:23&#43;08:00'/><meta property='og:image' content='http://skysora.github.io/post/6/header.jpg' />
+<meta name="twitter:title" content="利用OpenCV計算食物份量(簡單版)">
+<meta name="twitter:description" content="利用OpenCV做邊緣偵測切割出食物面積，利用swift ARKit知道深度之後，計算出食物份量。"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://skysora.github.io/post/6/header.jpg' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_huda2458f72ce188392d75c5d51cd8e24e_373_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Sora&#39;s Blog</a></h1>
+            <h2 class="site-description">what doesn&#39;t kill you makes you stronger</h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/post/6/">
+                <img src="/post/6/header_hudd2e8259c20ed0dcaa856c253552e90f_14625_800x0_resize_q75_box.jpg"
+                        srcset="/post/6/header_hudd2e8259c20ed0dcaa856c253552e90f_14625_800x0_resize_q75_box.jpg 800w, /post/6/header_hudd2e8259c20ed0dcaa856c253552e90f_14625_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="560" 
+                        loading="lazy"
+                        alt="Featured image of post 利用OpenCV計算食物份量(簡單版)" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/c&#43;&#43;/" >
+                C&#43;&#43;
+            </a>
+        
+            <a href="/categories/%E5%AD%B8%E7%BF%92/" >
+                學習
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/6/">利用OpenCV計算食物份量(簡單版)</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            利用OpenCV做邊緣偵測切割出食物面積，利用swift ARKit知道深度之後，計算出食物份量。
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 09, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="利用opencv計算食物份量簡單版">利用OpenCV計算食物份量(簡單版)</h1>
+<h2 id="結果圖">結果圖</h2>
+<p><img src="/post/6/1.png"
+	width="793"
+	height="598"
+	srcset="/post/6/1_hu15394f52a55e4afbe03109df6a5d405b_712061_480x0_resize_box_3.png 480w, /post/6/1_hu15394f52a55e4afbe03109df6a5d405b_712061_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="Image 1"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="132"
+		data-flex-basis="318px"
+	
+> <img src="/post/6/2.png"
+	width="1030"
+	height="801"
+	srcset="/post/6/2_hu894145223a26d24208eab3e5f1077746_897726_480x0_resize_box_3.png 480w, /post/6/2_hu894145223a26d24208eab3e5f1077746_897726_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="Image 2"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="128"
+		data-flex-basis="308px"
+	
+> <img src="/post/6/3.png"
+	width="1060"
+	height="726"
+	srcset="/post/6/3_huf46b4a0d43e0f51eaef297b3675bf0d7_1185499_480x0_resize_box_3.png 480w, /post/6/3_huf46b4a0d43e0f51eaef297b3675bf0d7_1185499_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="Image 3"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="146"
+		data-flex-basis="350px"
+	
+> <img src="/post/6/4.png"
+	width="1337"
+	height="1029"
+	srcset="/post/6/4_hu4fb18b22dd686b6a36fd4c0afd97bcab_1832670_480x0_resize_box_3.png 480w, /post/6/4_hu4fb18b22dd686b6a36fd4c0afd97bcab_1832670_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="Image 4"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="129"
+		data-flex-basis="311px"
+	
+></p>
+<h2 id="流程">流程</h2>
+<ul>
+<li>讀圖-&gt;將圖片模糊化(GaussianBlur)-&gt;利用Canny演算法找邊緣-&gt;填補空洞(Dilate)-&gt;找邊緣點(findContours)-&gt;計算面積</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span>    Mat imgGray,imgBlur,imgCanny,imgDil,imgErode;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//得到輪廓
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">getContours</span>(Mat imgDil , Mat img){
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span>Point<span style="color:#f92672">&gt;&gt;</span> contours;
+</span></span><span style="display:flex;"><span>        vector<span style="color:#f92672">&lt;</span>Vec4i<span style="color:#f92672">&gt;</span> hierarchy;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//找輪廓點
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">findContours</span>(imgDil,contours,hierarchy,RETR_EXTERNAL,CHAIN_APPROX_SIMPLE);
+</span></span><span style="display:flex;"><span>        string objectType;
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>contours.<span style="color:#a6e22e">size</span>();i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> area <span style="color:#f92672">=</span> <span style="color:#a6e22e">contourArea</span>(contours[i]);
+</span></span><span style="display:flex;"><span>            vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span>Point<span style="color:#f92672">&gt;&gt;</span> <span style="color:#a6e22e">conPoly</span>(contours.<span style="color:#a6e22e">size</span>());
+</span></span><span style="display:flex;"><span>            vector<span style="color:#f92672">&lt;</span>Rect<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">boundRect</span>(contours.<span style="color:#a6e22e">size</span>());
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(area<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">1000</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//          arcLength 函數通常用於計算輪廓的周長或曲線的長度。第二個參數 true 表示該輪廓是封閉的
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#66d9ef">float</span> peri <span style="color:#f92672">=</span> <span style="color:#a6e22e">arcLength</span>(contours[i], true);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//          這一行code使用多邊形逼近方法對輪廓進行逼近;0.0001*peri：逼近的精度參數，它是相對於輪廓周長的百分比。輪廓周長的2%用於確定逼近的精度。這個值越小，逼近的多邊形就越接近原始輪廓。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#a6e22e">approxPolyDP</span>(contours[i], conPoly[i], <span style="color:#ae81ff">0.0001</span><span style="color:#f92672">*</span>peri, true);
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">drawContours</span>(img, conPoly, i, <span style="color:#a6e22e">Scalar</span>(<span style="color:#ae81ff">255</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">255</span>),<span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//          畫正方形方匡
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                boundRect[i] <span style="color:#f92672">=</span> <span style="color:#a6e22e">boundingRect</span>(conPoly[i]);
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">rectangle</span>(img, boundRect[i].<span style="color:#a6e22e">tl</span>(), boundRect[i].<span style="color:#a6e22e">br</span>(),<span style="color:#a6e22e">Scalar</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">255</span>,<span style="color:#ae81ff">0</span>),<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        string path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Resources/12779.jpg&#34;</span>;
+</span></span><span style="display:flex;"><span>        Mat img <span style="color:#f92672">=</span> <span style="color:#a6e22e">imread</span>(path);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Preprocessing
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">cvtColor</span>(img, imgGray,COLOR_BGR2GRAY);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">GaussianBlur</span>(img, imgBlur, <span style="color:#a6e22e">Size</span>(<span style="color:#ae81ff">11</span>,<span style="color:#ae81ff">11</span>), <span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Canny</span>(imgBlur, imgCanny, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">100</span>);
+</span></span><span style="display:flex;"><span>        Mat kernel <span style="color:#f92672">=</span> <span style="color:#a6e22e">getStructuringElement</span>(MORPH_RECT, <span style="color:#a6e22e">Size</span>(<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>));
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">dilate</span>(imgCanny, imgDil, kernel);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">getContours</span>(imgDil,img);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">imshow</span>(<span style="color:#e6db74">&#34;Image&#34;</span>, img);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">waitKey</span>(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><ul>
+<li>得到面積後，使用swift ARKit技術可以得到相機到桌面距離(到平面距離)，依照公式求得物件體積。</li>
+</ul>
+<p><img src="/post/6/6.png"
+	width="2292"
+	height="1290"
+	srcset="/post/6/6_hu459742dc589e0ccf199c26744eed80ae_595983_480x0_resize_box_3.png 480w, /post/6/6_hu459742dc589e0ccf199c26744eed80ae_595983_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="Image 1"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<ul>
+<li>詳細說明可以看以下影片，但其中物件偵測是使用Yolo模型判定。</li>
+</ul>
+<div class="video-wrapper">
+    <iframe loading="lazy" 
+            src="https://www.youtube.com/embed/xLx5w28-NQ8" 
+            allowfullscreen 
+            title="YouTube Video"
+    >
+    </iframe>
+</div>
+
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E7%B4%A0%E6%9D%90/">素材</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/post/5/">
+        
+        
+            <div class="article-image">
+                <img src="/post/5/header.0d2c634c878fee011814f141cb52c19d_hubce42636ecacc1a380b462f3110efcec_37455_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 利用Canva製作旅遊手冊(提供模板)"
+                        
+                        data-hash="md5-DSxjTIeP7gEYFPFBy1LBnQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">利用Canva製作旅遊手冊(提供模板)</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/4/">
+        
+        
+            <div class="article-image">
+                <img src="/post/4/cover.c514d916917173a48a42e0114b469961_hud7e36f7e20e71be184458283bdae4646_55974_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Multi-server Resource Management"
+                        
+                        data-hash="md5-xRTZFpFxc6SKQuARS0aZYQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Multi-server Resource Management</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/3/">
+        
+        
+            <div class="article-image">
+                <img src="/post/3/1.496b704d481d310b0e136c06ee9f774f_hudd2e8259c20ed0dcaa856c253552e90f_14625_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 比較各大SpeechRecognizer服務"
+                        
+                        data-hash="md5-SWtwTUgdMQsOE2wG7p93Tw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">比較各大SpeechRecognizer服務</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/post/1/">
+        
+        
+            <div class="article-image">
+                <img src="/post/1/cover.c514d916917173a48a42e0114b469961_hud7e36f7e20e71be184458283bdae4646_55974_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Hugo&#43;Github server"
+                        
+                        data-hash="md5-xRTZFpFxc6SKQuARS0aZYQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Hugo&#43;Github server</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2023 Sora&#39;s Blog
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.20.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
