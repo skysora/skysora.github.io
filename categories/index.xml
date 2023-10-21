@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Categories on Sora&#39;s Blog</title>
+        <title>Categories on Sora的部落格</title>
         <link>http://skysora.github.io/categories/</link>
-        <description>Recent content in Categories on Sora&#39;s Blog</description>
+        <description>Recent content in Categories on Sora的部落格</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en-us</language>
-        <lastBuildDate>Mon, 09 Oct 2023 21:18:23 +0800</lastBuildDate><atom:link href="http://skysora.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>C&#43;&#43;</title>
-        <link>http://skysora.github.io/categories/c&#43;&#43;/</link>
-        <pubDate>Mon, 09 Oct 2023 21:18:23 +0800</pubDate>
+        <language>zh-cn</language>
+        <lastBuildDate>Tue, 17 Oct 2023 09:42:42 +0800</lastBuildDate><atom:link href="http://skysora.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>python</title>
+        <link>http://skysora.github.io/categories/python/</link>
+        <pubDate>Tue, 17 Oct 2023 09:42:42 +0800</pubDate>
         
-        <guid>http://skysora.github.io/categories/c&#43;&#43;/</guid>
+        <guid>http://skysora.github.io/categories/python/</guid>
         <description></description>
         </item>
         <item>
         <title>學習</title>
         <link>http://skysora.github.io/categories/%E5%AD%B8%E7%BF%92/</link>
-        <pubDate>Mon, 09 Oct 2023 21:18:23 +0800</pubDate>
+        <pubDate>Tue, 17 Oct 2023 09:42:42 +0800</pubDate>
         
         <guid>http://skysora.github.io/categories/%E5%AD%B8%E7%BF%92/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>C&#43;&#43;</title>
+        <link>http://skysora.github.io/categories/c&#43;&#43;/</link>
+        <pubDate>Mon, 09 Oct 2023 21:18:23 +0800</pubDate>
+        
+        <guid>http://skysora.github.io/categories/c&#43;&#43;/</guid>
         <description></description>
         </item>
         <item>
@@ -60,22 +68,6 @@
         <pubDate>Thu, 21 Sep 2023 00:00:00 +0000</pubDate>
         
         <guid>http://skysora.github.io/categories/web/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>syntax</title>
-        <link>http://skysora.github.io/categories/syntax/</link>
-        <pubDate>Thu, 07 Sep 2023 00:00:00 +0000</pubDate>
-        
-        <guid>http://skysora.github.io/categories/syntax/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>themes</title>
-        <link>http://skysora.github.io/categories/themes/</link>
-        <pubDate>Thu, 07 Sep 2023 00:00:00 +0000</pubDate>
-        
-        <guid>http://skysora.github.io/categories/themes/</guid>
         <description></description>
         </item>
         <item>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Server on Sora&#39;s Blog</title>
+        <title>Server on Sora的部落格</title>
         <link>http://skysora.github.io/tags/server/</link>
-        <description>Recent content in Server on Sora&#39;s Blog</description>
+        <description>Recent content in Server on Sora的部落格</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en-us</language>
+        <language>zh-cn</language>
         <lastBuildDate>Thu, 28 Sep 2023 15:02:14 +0800</lastBuildDate><atom:link href="http://skysora.github.io/tags/server/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Multi-server Resource Management</title>
         <link>http://skysora.github.io/post/4/</link>
@@ -43,12 +43,22 @@
 	
 &gt;&lt;/p&gt;
 &lt;h2 id=&#34;建置步驟&#34;&gt;建置步驟&lt;/h2&gt;
-&lt;h3 id=&#34;1下載需要的檔案並啟動&#34;&gt;1.下載需要的檔案，並啟動&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    git clone https://github.com/skysora/multi-server-resource-management.git
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    cd multi-server-resource-management
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    docker-compose up -d 
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;2建立datascoure&#34;&gt;2.建立DataScoure&lt;/h3&gt;
+&lt;h3 id=&#34;下載需要的檔案並啟動&#34;&gt;下載需要的檔案，並啟動&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    git clone https://github.com/skysora/multi-server-resource-management.git
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; multi-server-resource-management
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    docker-compose up -d 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;建立datascoure&#34;&gt;建立DataScoure&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;meau-&amp;gt;Connections-&amp;gt;Data sources-&amp;gt;Add new data source-&amp;gt;prometheus&lt;/li&gt;
 &lt;li&gt;在Prometheus server URL，輸入&amp;lt;你的url&amp;gt;:9090&lt;/li&gt;
@@ -69,7 +79,7 @@
 		data-flex-basis=&#34;225px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;h3 id=&#34;2建立dashboard&#34;&gt;2.建立Dashboard&lt;/h3&gt;
+&lt;h3 id=&#34;建立dashboard&#34;&gt;建立Dashboard&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;可依照喜好和使用的模組到https://grafana.com/grafana/dashboards/選擇喜歡的dashboards&lt;/li&gt;
 &lt;li&gt;本教學使用三個模組分別為node_exporter、cadvisor、nvidia_gpu_exporter
@@ -99,7 +109,7 @@
 	
 &gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;3依照步驟2完成所有監控設定&#34;&gt;3.依照步驟2完成所有監控設定&lt;/h3&gt;
+&lt;h3 id=&#34;依照步驟2完成所有監控設定&#34;&gt;依照步驟2完成所有監控設定&lt;/h3&gt;
 &lt;p&gt;&lt;img src=&#34;http://skysora.github.io/post/4/dashboard.png&#34;
 	width=&#34;1918&#34;
 	height=&#34;929&#34;

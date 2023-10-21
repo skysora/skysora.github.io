@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>機器學習 on Sora&#39;s Blog</title>
+        <title>機器學習 on Sora的部落格</title>
         <link>http://skysora.github.io/categories/%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92/</link>
-        <description>Recent content in 機器學習 on Sora&#39;s Blog</description>
+        <description>Recent content in 機器學習 on Sora的部落格</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en-us</language>
+        <language>zh-cn</language>
         <lastBuildDate>Fri, 22 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="http://skysora.github.io/categories/%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>機器學習面試題目</title>
         <link>http://skysora.github.io/post/2/</link>
@@ -13,15 +13,14 @@
         
         <guid>http://skysora.github.io/post/2/</guid>
         <description>&lt;img src="http://skysora.github.io/post/2/2.jpg" alt="Featured image of post 機器學習面試題目" /&gt;&lt;h1 id=&#34;heading&#34;&gt;&lt;/h1&gt;
-&lt;h2 id=&#34;結果&#34;&gt;結果&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;職務類別:機器識別研發工程師&lt;/li&gt;
-&lt;li&gt;2 hours&lt;/li&gt;
-&lt;li&gt;很多都回答不出來硬回答&lt;/li&gt;
-&lt;li&gt;在面試前要多複習，不要都只會用&lt;/li&gt;
-&lt;li&gt;leetcode 1&lt;em&gt;easy 1&lt;/em&gt;Medium&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;1batch-normalization-和一般-normalization-差別&#34;&gt;1.Batch Normalization 和一般 Normalization 差別&lt;/h3&gt;
+&lt;!-- ## 結論 --&gt;
+&lt;!-- 
+* 職務類別:機器識別研發工程師
+* 2 hours
+* 很多都回答不出來硬回答
+* 在面試前要多複習，不要都只會用
+* leetcode 1*easy 1*Medium --&gt;
+&lt;h2 id=&#34;batch-normalization-和一般-normalization-差別&#34;&gt;Batch Normalization 和一般 Normalization 差別&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Google 於 2015 年提出了 Batch Normalization 的方法，和輸入數據先做 feature scaling 再進行網路訓練的方法類似。在輸入數據時，通常都會先將 feature 做 normalize 後再進行訓練，可以加速模型收斂；而 Batch Normalization 就是指在每一層輸入都做一次 normalize&lt;/p&gt;
@@ -33,41 +32,41 @@
 &lt;p&gt;多的請參考：https://medium.com/ching-i/batch-normalization-%E4%BB%8B%E7%B4%B9-135a24928f12&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;2batchnormalization与layernormalization的區別&#34;&gt;2.BatchNormalization与LayerNormalization的區別&lt;/h3&gt;
+&lt;h2 id=&#34;batchnormalization与layernormalization的區別&#34;&gt;BatchNormalization与LayerNormalization的區別&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Batch Normalization 的處理對像是對一批樣本， Layer Normalization 的處理對像是單一樣本。 Batch Normalization 是對這批樣本的同一維度特徵做歸一化， Layer Normalization 是對這單一樣本的所有維度特徵做歸一化。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;3optimizer-在影像上和nlp上使用的差別&#34;&gt;3.Optimizer 在影像上和NLP上使用的差別&lt;/h3&gt;
+&lt;h2 id=&#34;optimizer-在影像上和nlp上使用的差別&#34;&gt;Optimizer 在影像上和NLP上使用的差別&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://medium.com/programming-with-data/34-%E8%AA%BF%E5%8F%83%E7%89%88bert%E6%87%89%E7%94%A8%E7%AF%84%E4%BE%8B-328f56308e64&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://medium.com/programming-with-data/34-%E8%AA%BF%E5%8F%83%E7%89%88bert%E6%87%89%E7%94%A8%E7%AF%84%E4%BE%8B-328f56308e64&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;4selfattention-為什麼要除一個scale&#34;&gt;4.selfAttention 為什麼要除一個Scale&lt;/h3&gt;
+&lt;h2 id=&#34;selfattention-為什麼要除一個scale&#34;&gt;selfAttention 為什麼要除一個Scale&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://zhuanlan.zhihu.com/p/503321685&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://zhuanlan.zhihu.com/p/503321685&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;5activation-function沒問但我不小心答非所問還講錯&#34;&gt;5.Activation function(沒問但我不小心答非所問，還講錯)&lt;/h3&gt;
+&lt;h2 id=&#34;activation-function&#34;&gt;Activation function&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://medium.com/%E6%B7%B1%E6%80%9D%E5%BF%83%E6%80%9D/ml08-activation-function-%E6%98%AF%E4%BB%80%E9%BA%BC-15ec78fa1ce4&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://medium.com/%E6%B7%B1%E6%80%9D%E5%BF%83%E6%80%9D/ml08-activation-function-%E6%98%AF%E4%BB%80%E9%BA%BC-15ec78fa1ce4&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;6影像-segmentation&#34;&gt;6.影像 segmentation&lt;/h3&gt;
+&lt;h2 id=&#34;影像-segmentation&#34;&gt;影像 segmentation&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://medium.com/ching-i/%E5%BD%B1%E5%83%8F%E5%88%86%E5%89%B2-image-segmentation-%E8%AA%9E%E7%BE%A9%E5%88%86%E5%89%B2-semantic-segmentation-1-53a1dde9ed92&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://medium.com/ching-i/%E5%BD%B1%E5%83%8F%E5%88%86%E5%89%B2-image-segmentation-%E8%AA%9E%E7%BE%A9%E5%88%86%E5%89%B2-semantic-segmentation-1-53a1dde9ed92&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;7梯度消失梯度爆炸&#34;&gt;7.梯度消失梯度爆炸&lt;/h3&gt;
+&lt;h2 id=&#34;梯度消失梯度爆炸&#34;&gt;梯度消失梯度爆炸&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://zhuanlan.zhihu.com/p/33006526&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://zhuanlan.zhihu.com/p/33006526&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;8梯度消失梯度不只在rnn會發生&#34;&gt;8.梯度消失梯度不只在RNN會發生&lt;/h3&gt;
+&lt;h2 id=&#34;梯度消失梯度不只在rnn會發生&#34;&gt;梯度消失梯度不只在RNN會發生&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ithelp.ithome.com.tw/m/articles/10280019&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://ithelp.ithome.com.tw/m/articles/10280019&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;9-layernormalization-通常放在哪裡-為什麼&#34;&gt;9. LayerNormalization 通常放在哪裡 為什麼&lt;/h3&gt;
+&lt;h2 id=&#34;layernormalization-通常放在哪裡-為什麼&#34;&gt;LayerNormalization 通常放在哪裡 為什麼&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://hackmd.io/@CZ-Chuang/BJ39oZnvD&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://hackmd.io/@CZ-Chuang/BJ39oZnvD&lt;/a&gt;&lt;/li&gt;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-us" dir="ltr">
+<html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='利用OpenCV做邊緣偵測切割出食物面積，利用swift ARKit知道深度之後，計算出食物份量。'>
 <title>利用OpenCV計算食物份量(簡單版)</title>
@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='利用OpenCV計算食物份量(簡單版)'>
 <meta property='og:description' content='利用OpenCV做邊緣偵測切割出食物面積，利用swift ARKit知道深度之後，計算出食物份量。'>
 <meta property='og:url' content='http://skysora.github.io/post/6/'>
-<meta property='og:site_name' content='Sora&#39;s Blog'>
+<meta property='og:site_name' content='Sora的部落格'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='素材' /><meta property='article:published_time' content='2023-10-09T21:18:23&#43;08:00'/><meta property='article:modified_time' content='2023-10-09T21:18:23&#43;08:00'/><meta property='og:image' content='http://skysora.github.io/post/6/header.jpg' />
 <meta name="twitter:title" content="利用OpenCV計算食物份量(簡單版)">
 <meta name="twitter:description" content="利用OpenCV做邊緣偵測切割出食物面積，利用swift ARKit知道深度之後，計算出食物份量。"><meta name="twitter:card" content="summary_large_image">
@@ -41,7 +41,7 @@
     })();
 </script>
 <div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切換菜單">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
         </span>
@@ -68,10 +68,32 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">Sora&#39;s Blog</a></h1>
-            <h2 class="site-description">what doesn&#39;t kill you makes you stronger</h2>
+            <h1 class="site-name"><a href="/">Sora的部落格</a></h1>
+            <h2 class="site-description">What doesn&#39;t kill you makes you stronger</h2>
         </div>
-    </header><ol class="menu" id="main-menu">
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/skysora'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
         
         
         
@@ -173,14 +195,57 @@
 
 
 
-                    <span>Dark Mode</span>
+                    <span>暗色模式</span>
                 </li>
             
         </div>
     </ol>
 </aside>
 
-    
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目錄</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#結果圖">結果圖</a></li>
+    <li><a href="#流程">流程</a>
+      <ol>
+        <li><a href="#讀圖">讀圖</a></li>
+        <li><a href="#將圖片模糊化gaussianblur">將圖片模糊化(GaussianBlur)</a></li>
+        <li><a href="#利用canny演算法找邊緣">利用Canny演算法找邊緣</a></li>
+        <li><a href="#填補空洞dilate">填補空洞(Dilate)</a></li>
+        <li><a href="#找邊緣點findcontours-計算面積">找邊緣點(findContours)-&gt;計算面積</a></li>
+        <li><a href="#total-code">Total Code</a></li>
+        <li><a href="#取得份量">取得份量</a></li>
+      </ol>
+    </li>
+    <li><a href="#影片解說">影片解說</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
 
             <main class="main full-width">
     <article class="has-image main-article">
@@ -256,7 +321,7 @@
 
 
                 <time class="article-time--reading">
-                    1 minute read
+                    閱讀時長: 2 分鐘
                 </time>
             </div>
         
@@ -327,54 +392,228 @@
 	
 ></p>
 <h2 id="流程">流程</h2>
+<h3 id="讀圖">讀圖</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">string</span> <span class="n">path</span> <span class="o">=</span> <span class="s">&#34;Resources/12779.jpg&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Mat</span> <span class="n">img</span> <span class="o">=</span> <span class="nf">imread</span><span class="p">(</span><span class="n">path</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="將圖片模糊化gaussianblur">將圖片模糊化(GaussianBlur)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Preprocessing
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">imgGray</span><span class="p">,</span><span class="n">COLOR_BGR2GRAY</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">GaussianBlur</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">imgBlur</span><span class="p">,</span> <span class="nf">Size</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">11</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="利用canny演算法找邊緣">利用Canny演算法找邊緣</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">Canny</span><span class="p">(</span><span class="n">imgBlur</span><span class="p">,</span> <span class="n">imgCanny</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="填補空洞dilate">填補空洞(Dilate)</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">Mat</span> <span class="n">kernel</span> <span class="o">=</span> <span class="nf">getStructuringElement</span><span class="p">(</span><span class="n">MORPH_RECT</span><span class="p">,</span> <span class="nf">Size</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">dilate</span><span class="p">(</span><span class="n">imgCanny</span><span class="p">,</span> <span class="n">imgDil</span><span class="p">,</span> <span class="n">kernel</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="找邊緣點findcontours-計算面積">找邊緣點(findContours)-&gt;計算面積</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//得到輪廓
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="nf">getContours</span><span class="p">(</span><span class="n">Mat</span> <span class="n">imgDil</span> <span class="p">,</span> <span class="n">Mat</span> <span class="n">img</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;&gt;</span> <span class="n">contours</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vector</span><span class="o">&lt;</span><span class="n">Vec4i</span><span class="o">&gt;</span> <span class="n">hierarchy</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//找輪廓點
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nf">findContours</span><span class="p">(</span><span class="n">imgDil</span><span class="p">,</span><span class="n">contours</span><span class="p">,</span><span class="n">hierarchy</span><span class="p">,</span><span class="n">RETR_EXTERNAL</span><span class="p">,</span><span class="n">CHAIN_APPROX_SIMPLE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">string</span> <span class="n">objectType</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">contours</span><span class="p">.</span><span class="nf">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">area</span> <span class="o">=</span> <span class="nf">contourArea</span><span class="p">(</span><span class="n">contours</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;&gt;</span> <span class="nf">conPoly</span><span class="p">(</span><span class="n">contours</span><span class="p">.</span><span class="nf">size</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">            <span class="n">vector</span><span class="o">&lt;</span><span class="n">Rect</span><span class="o">&gt;</span> <span class="nf">boundRect</span><span class="p">(</span><span class="n">contours</span><span class="p">.</span><span class="nf">size</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">area</span><span class="o">&gt;</span><span class="mi">1000</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//          arcLength 函數通常用於計算輪廓的周長或曲線的長度。第二個參數 true 表示該輪廓是封閉的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="kt">float</span> <span class="n">peri</span> <span class="o">=</span> <span class="nf">arcLength</span><span class="p">(</span><span class="n">contours</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="nb">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//          這一行code使用多邊形逼近方法對輪廓進行逼近;0.0001*peri：逼近的精度參數，它是相對於輪廓周長的百分比。輪廓周長的2%用於確定逼近的精度。這個值越小，逼近的多邊形就越接近原始輪廓。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="nf">approxPolyDP</span><span class="p">(</span><span class="n">contours</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">conPoly</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mf">0.0001</span><span class="o">*</span><span class="n">peri</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">drawContours</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">conPoly</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="nf">Scalar</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span><span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//          畫正方形方匡
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">boundRect</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nf">boundingRect</span><span class="p">(</span><span class="n">conPoly</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">rectangle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">boundRect</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nf">tl</span><span class="p">(),</span> <span class="n">boundRect</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nf">br</span><span class="p">(),</span><span class="nf">Scalar</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="total-code">Total Code</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">Mat</span> <span class="n">imgGray</span><span class="p">,</span><span class="n">imgBlur</span><span class="p">,</span><span class="n">imgCanny</span><span class="p">,</span><span class="n">imgDil</span><span class="p">,</span><span class="n">imgErode</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//得到輪廓
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="nf">getContours</span><span class="p">(</span><span class="n">Mat</span> <span class="n">imgDil</span> <span class="p">,</span> <span class="n">Mat</span> <span class="n">img</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;&gt;</span> <span class="n">contours</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vector</span><span class="o">&lt;</span><span class="n">Vec4i</span><span class="o">&gt;</span> <span class="n">hierarchy</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//找輪廓點
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nf">findContours</span><span class="p">(</span><span class="n">imgDil</span><span class="p">,</span><span class="n">contours</span><span class="p">,</span><span class="n">hierarchy</span><span class="p">,</span><span class="n">RETR_EXTERNAL</span><span class="p">,</span><span class="n">CHAIN_APPROX_SIMPLE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">string</span> <span class="n">objectType</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">contours</span><span class="p">.</span><span class="nf">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">area</span> <span class="o">=</span> <span class="nf">contourArea</span><span class="p">(</span><span class="n">contours</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;&gt;</span> <span class="nf">conPoly</span><span class="p">(</span><span class="n">contours</span><span class="p">.</span><span class="nf">size</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">            <span class="n">vector</span><span class="o">&lt;</span><span class="n">Rect</span><span class="o">&gt;</span> <span class="nf">boundRect</span><span class="p">(</span><span class="n">contours</span><span class="p">.</span><span class="nf">size</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">area</span><span class="o">&gt;</span><span class="mi">1000</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//          arcLength 函數通常用於計算輪廓的周長或曲線的長度。第二個參數 true 表示該輪廓是封閉的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="kt">float</span> <span class="n">peri</span> <span class="o">=</span> <span class="nf">arcLength</span><span class="p">(</span><span class="n">contours</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="nb">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//          這一行code使用多邊形逼近方法對輪廓進行逼近;0.0001*peri：逼近的精度參數，它是相對於輪廓周長的百分比。輪廓周長的2%用於確定逼近的精度。這個值越小，逼近的多邊形就越接近原始輪廓。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="nf">approxPolyDP</span><span class="p">(</span><span class="n">contours</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">conPoly</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mf">0.0001</span><span class="o">*</span><span class="n">peri</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">drawContours</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">conPoly</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="nf">Scalar</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span><span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//          畫正方形方匡
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">boundRect</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nf">boundingRect</span><span class="p">(</span><span class="n">conPoly</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">rectangle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">boundRect</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nf">tl</span><span class="p">(),</span> <span class="n">boundRect</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nf">br</span><span class="p">(),</span><span class="nf">Scalar</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">string</span> <span class="n">path</span> <span class="o">=</span> <span class="s">&#34;Resources/12779.jpg&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Mat</span> <span class="n">img</span> <span class="o">=</span> <span class="nf">imread</span><span class="p">(</span><span class="n">path</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1">// Preprocessing
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nf">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">imgGray</span><span class="p">,</span><span class="n">COLOR_BGR2GRAY</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">GaussianBlur</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">imgBlur</span><span class="p">,</span> <span class="nf">Size</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mi">11</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">Canny</span><span class="p">(</span><span class="n">imgBlur</span><span class="p">,</span> <span class="n">imgCanny</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Mat</span> <span class="n">kernel</span> <span class="o">=</span> <span class="nf">getStructuringElement</span><span class="p">(</span><span class="n">MORPH_RECT</span><span class="p">,</span> <span class="nf">Size</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">dilate</span><span class="p">(</span><span class="n">imgCanny</span><span class="p">,</span> <span class="n">imgDil</span><span class="p">,</span> <span class="n">kernel</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">getContours</span><span class="p">(</span><span class="n">imgDil</span><span class="p">,</span><span class="n">img</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="nf">imshow</span><span class="p">(</span><span class="s">&#34;Image&#34;</span><span class="p">,</span> <span class="n">img</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="取得份量">取得份量</h3>
 <ul>
-<li>讀圖-&gt;將圖片模糊化(GaussianBlur)-&gt;利用Canny演算法找邊緣-&gt;填補空洞(Dilate)-&gt;找邊緣點(findContours)-&gt;計算面積</li>
-</ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span>    Mat imgGray,imgBlur,imgCanny,imgDil,imgErode;
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//得到輪廓
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">getContours</span>(Mat imgDil , Mat img){
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span>Point<span style="color:#f92672">&gt;&gt;</span> contours;
-</span></span><span style="display:flex;"><span>        vector<span style="color:#f92672">&lt;</span>Vec4i<span style="color:#f92672">&gt;</span> hierarchy;
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//找輪廓點
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">findContours</span>(imgDil,contours,hierarchy,RETR_EXTERNAL,CHAIN_APPROX_SIMPLE);
-</span></span><span style="display:flex;"><span>        string objectType;
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>contours.<span style="color:#a6e22e">size</span>();i<span style="color:#f92672">++</span>){
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> area <span style="color:#f92672">=</span> <span style="color:#a6e22e">contourArea</span>(contours[i]);
-</span></span><span style="display:flex;"><span>            vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span>Point<span style="color:#f92672">&gt;&gt;</span> <span style="color:#a6e22e">conPoly</span>(contours.<span style="color:#a6e22e">size</span>());
-</span></span><span style="display:flex;"><span>            vector<span style="color:#f92672">&lt;</span>Rect<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">boundRect</span>(contours.<span style="color:#a6e22e">size</span>());
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(area<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">1000</span>){
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//          arcLength 函數通常用於計算輪廓的周長或曲線的長度。第二個參數 true 表示該輪廓是封閉的
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#66d9ef">float</span> peri <span style="color:#f92672">=</span> <span style="color:#a6e22e">arcLength</span>(contours[i], true);
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//          這一行code使用多邊形逼近方法對輪廓進行逼近;0.0001*peri：逼近的精度參數，它是相對於輪廓周長的百分比。輪廓周長的2%用於確定逼近的精度。這個值越小，逼近的多邊形就越接近原始輪廓。
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#a6e22e">approxPolyDP</span>(contours[i], conPoly[i], <span style="color:#ae81ff">0.0001</span><span style="color:#f92672">*</span>peri, true);
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">drawContours</span>(img, conPoly, i, <span style="color:#a6e22e">Scalar</span>(<span style="color:#ae81ff">255</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">255</span>),<span style="color:#ae81ff">2</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//          畫正方形方匡
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                boundRect[i] <span style="color:#f92672">=</span> <span style="color:#a6e22e">boundingRect</span>(conPoly[i]);
-</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">rectangle</span>(img, boundRect[i].<span style="color:#a6e22e">tl</span>(), boundRect[i].<span style="color:#a6e22e">br</span>(),<span style="color:#a6e22e">Scalar</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">255</span>,<span style="color:#ae81ff">0</span>),<span style="color:#ae81ff">1</span>);
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        string path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Resources/12779.jpg&#34;</span>;
-</span></span><span style="display:flex;"><span>        Mat img <span style="color:#f92672">=</span> <span style="color:#a6e22e">imread</span>(path);
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Preprocessing
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">cvtColor</span>(img, imgGray,COLOR_BGR2GRAY);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">GaussianBlur</span>(img, imgBlur, <span style="color:#a6e22e">Size</span>(<span style="color:#ae81ff">11</span>,<span style="color:#ae81ff">11</span>), <span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">0</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Canny</span>(imgBlur, imgCanny, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">100</span>);
-</span></span><span style="display:flex;"><span>        Mat kernel <span style="color:#f92672">=</span> <span style="color:#a6e22e">getStructuringElement</span>(MORPH_RECT, <span style="color:#a6e22e">Size</span>(<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>));
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">dilate</span>(imgCanny, imgDil, kernel);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">getContours</span>(imgDil,img);
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">imshow</span>(<span style="color:#e6db74">&#34;Image&#34;</span>, img);
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">waitKey</span>(<span style="color:#ae81ff">0</span>);
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span></code></pre></div><ul>
 <li>得到面積後，使用swift ARKit技術可以得到相機到桌面距離(到平面距離)，依照公式求得物件體積。</li>
 </ul>
 <p><img src="/post/6/6.png"
@@ -391,6 +630,7 @@
 		data-flex-basis="426px"
 	
 ></p>
+<h2 id="影片解說">影片解說</h2>
 <ul>
 <li>詳細說明可以看以下影片，但其中物件偵測是使用Yolo模型判定。</li>
 </ul>
@@ -416,6 +656,18 @@
     </section>
 
 
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
     </footer>
 
 
@@ -427,29 +679,29 @@
     
 
 <aside class="related-content--wrapper">
-    <h2 class="section-title">Related content</h2>
+    <h2 class="section-title">相關文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
             
                 
 <article class="has-image">
-    <a href="/post/5/">
+    <a href="/post/7/">
         
         
             <div class="article-image">
-                <img src="/post/5/header.0d2c634c878fee011814f141cb52c19d_hubce42636ecacc1a380b462f3110efcec_37455_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/7/header.c514d916917173a48a42e0114b469961_hud7e36f7e20e71be184458283bdae4646_55974_250x150_fill_q75_box_smart1.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
-                        alt="Featured image of post 利用Canva製作旅遊手冊(提供模板)"
+                        alt="Featured image of post [Flask]利用docker-compose一鍵啟動網頁服務，製作網頁的起手式-註冊和登入"
                         
-                        data-hash="md5-DSxjTIeP7gEYFPFBy1LBnQ==">
+                        data-hash="md5-xRTZFpFxc6SKQuARS0aZYQ==">
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">利用Canva製作旅遊手冊(提供模板)</h2>
+            <h2 class="article-title">[Flask]利用docker-compose一鍵啟動網頁服務，製作網頁的起手式-註冊和登入</h2>
         </div>
     </a>
 </article>
@@ -503,30 +755,6 @@
 </article>
 
             
-                
-<article class="has-image">
-    <a href="/post/1/">
-        
-        
-            <div class="article-image">
-                <img src="/post/1/cover.c514d916917173a48a42e0114b469961_hud7e36f7e20e71be184458283bdae4646_55974_250x150_fill_q75_box_smart1.jpg" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post Hugo&#43;Github server"
-                        
-                        data-hash="md5-xRTZFpFxc6SKQuARS0aZYQ==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Hugo&#43;Github server</h2>
-        </div>
-    </a>
-</article>
-
-            
         </div>
     </div>
 </aside>
@@ -534,18 +762,60 @@
      
     
         
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
     
 
     <footer class="site-footer">
     <section class="copyright">
         &copy; 
         
-        2023 Sora&#39;s Blog
+        2023 Sora的部落格
     </section>
     
     <section class="powerby">
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.20.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        Built with Sora <br />
+        
     </section>
 </footer>
 
