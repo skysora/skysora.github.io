@@ -6,7 +6,23 @@
         <description>Recent content in Categories on Sora的部落格</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Tue, 17 Oct 2023 09:42:42 +0800</lastBuildDate><atom:link href="http://skysora.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 29 Oct 2023 14:17:58 +0800</lastBuildDate><atom:link href="http://skysora.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>C</title>
+        <link>http://skysora.github.io/categories/c/</link>
+        <pubDate>Sun, 29 Oct 2023 14:17:58 +0800</pubDate>
+        
+        <guid>http://skysora.github.io/categories/c/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>題目</title>
+        <link>http://skysora.github.io/categories/%E9%A1%8C%E7%9B%AE/</link>
+        <pubDate>Sun, 29 Oct 2023 14:17:58 +0800</pubDate>
+        
+        <guid>http://skysora.github.io/categories/%E9%A1%8C%E7%9B%AE/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>python</title>
         <link>http://skysora.github.io/categories/python/</link>
         <pubDate>Tue, 17 Oct 2023 09:42:42 +0800</pubDate>
@@ -52,14 +68,6 @@
         <pubDate>Fri, 22 Sep 2023 00:00:00 +0000</pubDate>
         
         <guid>http://skysora.github.io/categories/%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>題目</title>
-        <link>http://skysora.github.io/categories/%E9%A1%8C%E7%9B%AE/</link>
-        <pubDate>Fri, 22 Sep 2023 00:00:00 +0000</pubDate>
-        
-        <guid>http://skysora.github.io/categories/%E9%A1%8C%E7%9B%AE/</guid>
         <description></description>
         </item>
         <item>
