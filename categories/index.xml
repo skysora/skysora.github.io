@@ -6,7 +6,15 @@
         <description>Recent content in Categories on Sora的部落格</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Sat, 11 Nov 2023 18:45:18 +0800</lastBuildDate><atom:link href="http://skysora.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 28 Nov 2023 15:47:28 +0800</lastBuildDate><atom:link href="http://skysora.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>活動</title>
+        <link>http://skysora.github.io/categories/%E6%B4%BB%E5%8B%95/</link>
+        <pubDate>Tue, 28 Nov 2023 15:47:28 +0800</pubDate>
+        
+        <guid>http://skysora.github.io/categories/%E6%B4%BB%E5%8B%95/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>C</title>
         <link>http://skysora.github.io/categories/c/</link>
         <pubDate>Sat, 11 Nov 2023 18:45:18 +0800</pubDate>

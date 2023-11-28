@@ -2,22 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://skysora.github.io/post/10/</loc>
+    <lastmod>2023-11-28T15:47:28+08:00</lastmod>
+  </url><url>
+    <loc>http://skysora.github.io/categories/</loc>
+    <lastmod>2023-11-28T15:47:28+08:00</lastmod>
+  </url><url>
+    <loc>http://skysora.github.io/tags/nlplab/</loc>
+    <lastmod>2023-11-28T15:47:28+08:00</lastmod>
+  </url><url>
+    <loc>http://skysora.github.io/post/</loc>
+    <lastmod>2023-11-28T15:47:28+08:00</lastmod>
+  </url><url>
+    <loc>http://skysora.github.io/tags/</loc>
+    <lastmod>2023-11-28T15:47:28+08:00</lastmod>
+  </url><url>
+    <loc>http://skysora.github.io/categories/%E6%B4%BB%E5%8B%95/</loc>
+    <lastmod>2023-11-28T15:47:28+08:00</lastmod>
+  </url><url>
     <loc>http://skysora.github.io/post/9/</loc>
     <lastmod>2023-11-11T18:45:18+08:00</lastmod>
   </url><url>
     <loc>http://skysora.github.io/categories/c/</loc>
     <lastmod>2023-11-11T18:45:18+08:00</lastmod>
   </url><url>
-    <loc>http://skysora.github.io/categories/</loc>
-    <lastmod>2023-11-11T18:45:18+08:00</lastmod>
-  </url><url>
-    <loc>http://skysora.github.io/post/</loc>
-    <lastmod>2023-11-11T18:45:18+08:00</lastmod>
-  </url><url>
     <loc>http://skysora.github.io/categories/python/</loc>
-    <lastmod>2023-11-11T18:45:18+08:00</lastmod>
-  </url><url>
-    <loc>http://skysora.github.io/tags/</loc>
     <lastmod>2023-11-11T18:45:18+08:00</lastmod>
   </url><url>
     <loc>http://skysora.github.io/tags/%E9%A1%8C%E7%9B%AE/</loc>
