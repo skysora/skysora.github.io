@@ -2,19 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://skysora.github.io/post/11/</loc>
+    <lastmod>2023-12-07T14:24:54+08:00</lastmod>
+  </url><url>
+    <loc>http://skysora.github.io/categories/</loc>
+    <lastmod>2023-12-07T14:24:54+08:00</lastmod>
+  </url><url>
+    <loc>http://skysora.github.io/tags/flask/</loc>
+    <lastmod>2023-12-07T14:24:54+08:00</lastmod>
+  </url><url>
+    <loc>http://skysora.github.io/post/</loc>
+    <lastmod>2023-12-07T14:24:54+08:00</lastmod>
+  </url><url>
+    <loc>http://skysora.github.io/tags/</loc>
+    <lastmod>2023-12-07T14:24:54+08:00</lastmod>
+  </url><url>
+    <loc>http://skysora.github.io/tags/web/</loc>
+    <lastmod>2023-12-07T14:24:54+08:00</lastmod>
+  </url><url>
+    <loc>http://skysora.github.io/categories/web/</loc>
+    <lastmod>2023-12-07T14:24:54+08:00</lastmod>
+  </url><url>
     <loc>http://skysora.github.io/post/10/</loc>
     <lastmod>2023-11-28T15:47:28+08:00</lastmod>
   </url><url>
-    <loc>http://skysora.github.io/categories/</loc>
-    <lastmod>2023-11-28T15:47:28+08:00</lastmod>
-  </url><url>
     <loc>http://skysora.github.io/tags/nlplab/</loc>
-    <lastmod>2023-11-28T15:47:28+08:00</lastmod>
-  </url><url>
-    <loc>http://skysora.github.io/post/</loc>
-    <lastmod>2023-11-28T15:47:28+08:00</lastmod>
-  </url><url>
-    <loc>http://skysora.github.io/tags/</loc>
     <lastmod>2023-11-28T15:47:28+08:00</lastmod>
   </url><url>
     <loc>http://skysora.github.io/categories/%E6%B4%BB%E5%8B%95/</loc>
@@ -39,9 +51,6 @@
     <lastmod>2023-10-29T14:17:58+08:00</lastmod>
   </url><url>
     <loc>http://skysora.github.io/post/7/</loc>
-    <lastmod>2023-10-17T09:42:42+08:00</lastmod>
-  </url><url>
-    <loc>http://skysora.github.io/tags/flask/</loc>
     <lastmod>2023-10-17T09:42:42+08:00</lastmod>
   </url><url>
     <loc>http://skysora.github.io/tags/%E7%B4%A0%E6%9D%90/</loc>
@@ -90,12 +99,6 @@
     <lastmod>2023-09-22T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://skysora.github.io/post/1/</loc>
-    <lastmod>2023-09-21T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://skysora.github.io/tags/web/</loc>
-    <lastmod>2023-09-21T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://skysora.github.io/categories/web/</loc>
     <lastmod>2023-09-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://skysora.github.io/page/archives/</loc>

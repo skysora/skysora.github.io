@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='利用Hugo建置靜態網頁放置在Github server上'>
-<title>[Web] Hugo&#43;Github server</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='擁有DNS後如何利用certbot工具產生憑證，讓網頁可以使用https安全進入'>
+<title>[Web]擁有DNS後如何申請憑證</title>
 
-<link rel='canonical' href='http://skysora.github.io/post/1/'>
+<link rel='canonical' href='http://skysora.github.io/post/11/'>
 
-<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='[Web] Hugo&#43;Github server'>
-<meta property='og:description' content='利用Hugo建置靜態網頁放置在Github server上'>
-<meta property='og:url' content='http://skysora.github.io/post/1/'>
+<link rel="stylesheet" href="/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='[Web]擁有DNS後如何申請憑證'>
+<meta property='og:description' content='擁有DNS後如何利用certbot工具產生憑證，讓網頁可以使用https安全進入'>
+<meta property='og:url' content='http://skysora.github.io/post/11/'>
 <meta property='og:site_name' content='Sora的部落格'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Web' /><meta property='article:tag' content='素材' /><meta property='article:published_time' content='2023-09-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2023-09-21T00:00:00&#43;00:00'/><meta property='og:image' content='http://skysora.github.io/post/1/cover.jpg' />
-<meta name="twitter:title" content="[Web] Hugo&#43;Github server">
-<meta name="twitter:description" content="利用Hugo建置靜態網頁放置在Github server上"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://skysora.github.io/post/1/cover.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Web' /><meta property='article:tag' content='flask' /><meta property='article:published_time' content='2023-12-07T14:24:54&#43;08:00'/><meta property='article:modified_time' content='2023-12-07T14:24:54&#43;08:00'/><meta property='og:image' content='http://skysora.github.io/post/11/header.jpg' />
+<meta name="twitter:title" content="[Web]擁有DNS後如何申請憑證">
+<meta name="twitter:description" content="擁有DNS後如何利用certbot工具產生憑證，讓網頁可以使用https安全進入"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://skysora.github.io/post/11/header.jpg' />
     </head>
     <body class="
     article-page
@@ -224,15 +224,23 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#結果圖">結果圖</a></li>
-    <li><a href="#事前軟體安裝">事前軟體安裝</a></li>
-    <li><a href="#開始">開始</a>
+    <li><a href="#結果">結果</a></li>
+    <li><a href="#步驟1確認dns可用">步驟1:確認DNS可用</a>
       <ol>
-        <li><a href="#將兩個repositories-clone-下來並初始化hugo-folder">將兩個Repositories clone 下來並初始化hugo folder</a></li>
-        <li><a href="#將想要的模板git-clone-到-themes目錄下">將想要的模板git clone 到 /themes目錄下</a></li>
-        <li><a href="#將hugotoml-設定檔案做修正">將hugo.toml 設定檔案做修正</a></li>
-        <li><a href="#產生靜態網頁">產生靜態網頁</a></li>
-        <li><a href="#將靜態網頁部署上去">將靜態網頁部署上去</a></li>
+        <li><a href="#檢查域名是否真的註冊">檢查域名是否真的註冊</a></li>
+        <li><a href="#確認伺服器的網路是否可連線">確認伺服器的網路是否可連線</a></li>
+        <li><a href="#檢查伺服器的http服務是否正在運作">檢查伺服器的HTTP服務是否正在運作</a>
+          <ol>
+            <li><a href="#下載nginx">下載nginx</a></li>
+            <li><a href="#檢查網站是否正常運作">檢查網站是否正常運作</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#步驟2利用certbot申請憑證">步驟2:利用certbot申請憑證</a>
+      <ol>
+        <li><a href="#利用nginx認證憑證公鑰及私鑰">利用nginx認證憑證公鑰及私鑰</a></li>
+        <li><a href="#設定金鑰路徑使用gevent">設定金鑰路徑(使用gevent)</a></li>
       </ol>
     </li>
   </ol>
@@ -249,13 +257,13 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/post/1/">
-                <img src="/post/1/cover_hud7e36f7e20e71be184458283bdae4646_55974_800x0_resize_q75_box.jpg"
-                        srcset="/post/1/cover_hud7e36f7e20e71be184458283bdae4646_55974_800x0_resize_q75_box.jpg 800w, /post/1/cover_hud7e36f7e20e71be184458283bdae4646_55974_1600x0_resize_q75_box.jpg 1600w"
+            <a href="/post/11/">
+                <img src="/post/11/header_hud7e36f7e20e71be184458283bdae4646_55974_800x0_resize_q75_box.jpg"
+                        srcset="/post/11/header_hud7e36f7e20e71be184458283bdae4646_55974_800x0_resize_q75_box.jpg 800w, /post/11/header_hud7e36f7e20e71be184458283bdae4646_55974_1600x0_resize_q75_box.jpg 1600w"
                         width="800" 
                         height="534" 
                         loading="lazy"
-                        alt="Featured image of post [Web] Hugo&#43;Github server" />
+                        alt="Featured image of post [Web]擁有DNS後如何申請憑證" />
                 
             </a>
         </div>
@@ -274,12 +282,12 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/post/1/">[Web] Hugo&#43;Github server</a>
+            <a href="/post/11/">[Web]擁有DNS後如何申請憑證</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            利用Hugo建置靜態網頁放置在Github server上
+            擁有DNS後如何利用certbot工具產生憑證，讓網頁可以使用https安全進入
         </h3>
         
     </div>
@@ -300,7 +308,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Sep 21, 2023</time>
+                <time class="article-time--published">Dec 07, 2023</time>
             </div>
         
 
@@ -315,7 +323,7 @@
 
 
                 <time class="article-time--reading">
-                    閱讀時長: 1 分鐘
+                    閱讀時長: 2 分鐘
                 </time>
             </div>
         
@@ -330,68 +338,30 @@
     <section class="article-content">
     
     
-    <h1 id="利用hugo建置靜態網頁放置在github-server上">利用Hugo建置靜態網頁放置在Github server上</h1>
-<h2 id="結果圖">結果圖</h2>
-<p><img src="/post/1/result.png"
-	width="2555"
-	height="1380"
-	srcset="/post/1/result_hu0002ba680d61dd347f9acb7141712555_929620_480x0_resize_box_3.png 480w, /post/1/result_hu0002ba680d61dd347f9acb7141712555_929620_1024x0_resize_box_3.png 1024w"
+    <h2 id="結果">結果</h2>
+<ul>
+<li>能將憑證掛載至DNS上利用https進入</li>
+</ul>
+<p><img src="/post/11/result.png"
+	width="301"
+	height="124"
+	srcset="/post/11/result_hue3d59752360bc1272b5bdac888005a46_10572_480x0_resize_box_3.png 480w, /post/11/result_hue3d59752360bc1272b5bdac888005a46_10572_1024x0_resize_box_3.png 1024w"
 	loading="lazy"
 	
-		alt="Image 1"
+		alt="result"
 	
 	
 		class="gallery-image" 
-		data-flex-grow="185"
-		data-flex-basis="444px"
+		data-flex-grow="242"
+		data-flex-basis="582px"
 	
 ></p>
-<h2 id="事前軟體安裝">事前軟體安裝</h2>
+<h2 id="步驟1確認dns可用">步驟1:確認DNS可用</h2>
 <ul>
-<li>Git</li>
-<li>Hugo</li>
+<li>參考<a class="link" href="https://blog.pulipuli.info/2023/04/blog-post_09.html"  target="_blank" rel="noopener"
+    >文章</a></li>
 </ul>
-<h2 id="開始">開始</h2>
-<p>在Github上創立兩個Repositories
-兩個Repositories分別代表</p>
-<ul>
-<li>[YourwebName] : 放置Hugo code</li>
-<li>[GithubUserName].github.io: 放置Hugo產生出來的靜態網頁
-<img src="/post/1/github.png"
-	width="919"
-	height="247"
-	srcset="/post/1/github_hue92b64532e37cb685656e6f565be7e87_24402_480x0_resize_box_3.png 480w, /post/1/github_hue92b64532e37cb685656e6f565be7e87_24402_1024x0_resize_box_3.png 1024w"
-	loading="lazy"
-	
-		alt="Image 1"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="372"
-		data-flex-basis="892px"
-	
-></li>
-</ul>
-<h3 id="將兩個repositories-clone-下來並初始化hugo-folder">將兩個Repositories clone 下來並初始化hugo folder</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    git clone https://github.com/skysora/myweb.git
-</span></span><span class="line"><span class="cl">    <span class="nb">cd</span> myweb
-</span></span><span class="line"><span class="cl">    hugo new site <span class="o">[</span>yourNeedName<span class="o">]</span>
-</span></span><span class="line"><span class="cl">    git clone https://github.com/skysora/skysora.github.io.git
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="將想要的模板git-clone-到-themes目錄下">將想要的模板git clone 到 /themes目錄下</h3>
-<p>可以去<a class="link" href="https://themes.gohugo.io/"  target="_blank" rel="noopener"
-    >官方網站</a>挑模板</p>
+<h3 id="檢查域名是否真的註冊">檢查域名是否真的註冊</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -401,53 +371,32 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nb">cd</span> themes
-</span></span><span class="line"><span class="cl">    git clone https://github.com/CaiJimmy/hugo-theme-stack-starter
-</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    apt-get install -y dnsutils
+</span></span><span class="line"><span class="cl">    nslookup &lt;your_dns&gt;
+</span></span><span class="line"><span class="cl">-
 </span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
-<li>注意，若要載hugo-theme-stack-starter模組要另外載mod</li>
+<li>成功結果</li>
 </ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    hugo mod get -u github.com/CaiJimmy/hugo-theme-stack/v3
-</span></span><span class="line"><span class="cl">    hugo mod tidy
-</span></span><span class="line"><span class="cl">    
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="將hugotoml-設定檔案做修正">將hugo.toml 設定檔案做修正</h3>
-<ul>
-<li>修正baseURL 為你的github網址(baseURL)</li>
-<li>將theme修正為你clone模板名稱(theme)</li>
-<li>import 模組</li>
-</ul>
-<p><img src="/post/1/setting.png"
-	width="761"
-	height="341"
-	srcset="/post/1/setting_huffb10e9ee35a3c3c1874f9fbe1995ab1_46389_480x0_resize_box_3.png 480w, /post/1/setting_huffb10e9ee35a3c3c1874f9fbe1995ab1_46389_1024x0_resize_box_3.png 1024w"
+<p><img src="/post/11/1.png"
+	width="223"
+	height="88"
+	srcset="/post/11/1_hu562c1dc8169640b66992fbef94596369_7410_480x0_resize_box_3.png 480w, /post/11/1_hu562c1dc8169640b66992fbef94596369_7410_1024x0_resize_box_3.png 1024w"
 	loading="lazy"
 	
-		alt="Image 1"
+		alt="圖1"
 	
 	
 		class="gallery-image" 
-		data-flex-grow="223"
-		data-flex-basis="535px"
+		data-flex-grow="253"
+		data-flex-basis="608px"
 	
 ></p>
-<h3 id="產生靜態網頁">產生靜態網頁</h3>
 <ul>
-<li>先將[GithubUserName].github.io Repositories clone 進[yourNeedName] 資料夾</li>
-<li>將hugo code 轉成靜態網頁</li>
+<li>失敗會顯示** server can&rsquo;t find not-registered.pulipuli.info: NXDOMAIN</li>
 </ul>
+<h3 id="確認伺服器的網路是否可連線">確認伺服器的網路是否可連線</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -457,12 +406,83 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    git submodule add -b main https://github.com/skysora/skysora.github.io.git public
-</span></span><span class="line"><span class="cl">    hugo -t hugo-theme-stack
-</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    apt-get install -y iputils-ping
+</span></span><span class="line"><span class="cl">    ping -c <span class="m">1</span> -t <span class="m">10</span>  &lt;your_dns&gt;
+</span></span><span class="line"><span class="cl">-
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="將靜態網頁部署上去">將靜態網頁部署上去</h3>
+</div><ul>
+<li>成功結果</li>
+</ul>
+<p><img src="/post/11/2.png"
+	width="539"
+	height="88"
+	srcset="/post/11/2_hu5893304be5d075c9708ec73c82d1ad38_12329_480x0_resize_box_3.png 480w, /post/11/2_hu5893304be5d075c9708ec73c82d1ad38_12329_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="圖2"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="612"
+		data-flex-basis="1470px"
+	
+></p>
+<ul>
+<li>失敗會顯示ping: not-registered.google.com: Name or service not known</li>
+</ul>
+<h3 id="檢查伺服器的http服務是否正在運作">檢查伺服器的HTTP服務是否正在運作</h3>
+<ul>
+<li>進行第二步驟前要先確認HTTP是否能使用。</li>
+<li>可先架設基本nginx網站，後續我們也會借此認證憑證</li>
+</ul>
+<h4 id="下載nginx">下載nginx</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">sudo apt install nginx
+</span></span><span class="line"><span class="cl">sudo systemctl start nginx
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="檢查網站是否正常運作">檢查網站是否正常運作</h4>
+<pre><code>- 直接到瀏覽器前往DNS，成功會顯示網頁，失敗會顯示Not Found。
+</code></pre>
+<h2 id="步驟2利用certbot申請憑證">步驟2:利用certbot申請憑證</h2>
+<pre><code>- 要先確認HTTP是否可以正常運作
+</code></pre>
+<h3 id="利用nginx認證憑證公鑰及私鑰">利用nginx認證憑證公鑰及私鑰</h3>
+<ul>
+<li>一般來說/var/www/html為nginx網頁根目錄</li>
+<li>產生後檔案複製到flask(或其他)資料夾內</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    sudo certbot certonly --webroot -w /var/www/html -d &lt;your_dns&gt;
+</span></span><span class="line"><span class="cl">-
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="設定金鑰路徑使用gevent">設定金鑰路徑(使用gevent)</h3>
+<ul>
+<li>這裡是使用gunicorn python套件幫忙執行flask服務，所以編輯gunicorn設定檔</li>
+<li>詳細gunicorn架設服務教學可參考<a class="link" href="https://skysora.github.io/post/7/"  target="_blank" rel="noopener"
+    >Flask登入註冊專案</a></li>
+<li>設定完成後就可以以https連線囉</li>
+<li>要注意設定port號，基本https是443
+gunicorn.conf.py</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -470,28 +490,20 @@
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nb">cd</span> public
-</span></span><span class="line"><span class="cl">    git add -A
-</span></span><span class="line"><span class="cl">    git commit -m <span class="s2">&#34;first commit&#34;</span>
-</span></span><span class="line"><span class="cl">    
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">    <span class="n">workers</span> <span class="o">=</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl">    <span class="n">worker_class</span> <span class="o">=</span> <span class="s2">&#34;gevent&#34;</span>   
+</span></span><span class="line"><span class="cl">    <span class="n">bind</span> <span class="o">=</span> <span class="s2">&#34;0.0.0.0:443&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">certfile</span> <span class="o">=</span> <span class="s2">&#34;/web/ssl/fullchain.pem&#34;</span>  <span class="c1"># SSL 证书的路径</span>
+</span></span><span class="line"><span class="cl">    <span class="n">keyfile</span> <span class="o">=</span> <span class="s2">&#34;/web/ssl/privkey.pem&#34;</span>   <span class="c1"># SSL 私钥的路径</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><blockquote>
-<p>— <cite>Creating a Blog with Hugo and Github in 10 minutes<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></cite></p>
-</blockquote>
-<div class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1">
-<p><a class="link" href="https://www.youtube.com/watch?v=LIFvgrRxdt4"  target="_blank" rel="noopener"
-    >https://www.youtube.com/watch?v=LIFvgrRxdt4</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
 </div>
-
 </section>
 
 
@@ -501,7 +513,7 @@
         
             <a href="/tags/web/">Web</a>
         
-            <a href="/tags/%E7%B4%A0%E6%9D%90/">素材</a>
+            <a href="/tags/flask/">flask</a>
         
     </section>
 
@@ -535,15 +547,15 @@
             
                 
 <article class="has-image">
-    <a href="/post/11/">
+    <a href="/post/1/">
         
         
             <div class="article-image">
-                <img src="/post/11/header.c514d916917173a48a42e0114b469961_hud7e36f7e20e71be184458283bdae4646_55974_250x150_fill_q75_box_smart1.jpg" 
+                <img src="/post/1/cover.c514d916917173a48a42e0114b469961_hud7e36f7e20e71be184458283bdae4646_55974_250x150_fill_q75_box_smart1.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
-                        alt="Featured image of post [Web]擁有DNS後如何申請憑證"
+                        alt="Featured image of post [Web] Hugo&#43;Github server"
                         
                         data-hash="md5-xRTZFpFxc6SKQuARS0aZYQ==">
                 
@@ -551,7 +563,7 @@
         
 
         <div class="article-details">
-            <h2 class="article-title">[Web]擁有DNS後如何申請憑證</h2>
+            <h2 class="article-title">[Web] Hugo&#43;Github server</h2>
         </div>
     </a>
 </article>
